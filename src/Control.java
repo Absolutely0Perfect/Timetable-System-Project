@@ -9,13 +9,7 @@ class Control{
     }
 
     public void initialise(){
-        scanner = new Scanner(System.in);
-        if (User.login() == 1){
-            running = true;
-        }
-        else{
-            scanner.close();
-        }
+        //to be implemented
     }
 
     public void displayInterface(){

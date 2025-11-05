@@ -1,3 +1,0 @@
-class Lecturer extends Person{
-    
-}

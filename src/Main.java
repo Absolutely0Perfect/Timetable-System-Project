@@ -2,8 +2,8 @@ public class Main{
     static void main(String[] args){
         Control control = new Control();
 
-        while(control.isRunning){
-            
+        control.initialise(); 
+        while(control.isRunning()){
         }
     }
 }

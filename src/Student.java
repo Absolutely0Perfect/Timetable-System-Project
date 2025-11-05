@@ -1,7 +1,4 @@
-class User {
-    boolean isAdmin;
-    String name;
-    String password;
+class Student extends Person {
 
     public static int login(){ //subject to change
         // implement

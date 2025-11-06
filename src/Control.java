@@ -1,22 +1,15 @@
 import java.util.Scanner;
 
 class Control{
+    boolean running = false;
     public static Scanner scanner;
-    
-    private boolean running = false;
 
     public boolean isRunning(){
         return running;
     }
 
     public void initialise(){
-        scanner = new Scanner(System.in);
-        if (User.login() == 1){
-            running = true;
-        }
-        else{
-            scanner.close();
-        }
+        //to be implemented
     }
 
     public void displayInterface(){

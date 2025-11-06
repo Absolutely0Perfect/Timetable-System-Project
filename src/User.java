@@ -2,7 +2,7 @@ class User{
     public enum UserType{
         student, lecturer, stuff, admin;
 
-        public static  UserType getUserType(int i){
+        public static  UserType toUserType(int i){
             switch(i){
             case 0:
                 return student;
@@ -15,6 +15,19 @@ class User{
             }
             return null;
         }
+
+        public int toInt(UserType t){
+            switch(t){
+            case student:
+                return 0;
+            case lecturer:
+                return 1;
+            case stuff:
+                return 2;
+            case admin:
+                return 3;
+            }
+        } 
     }
 
     private String username;
@@ -24,6 +37,6 @@ class User{
     User(String username, String password, int type){
         this.username = username;
         this.password = password;
-        this.type = UserType.getUserType(type);
+        this.type = UserType.toUserType(type);
     }
 }

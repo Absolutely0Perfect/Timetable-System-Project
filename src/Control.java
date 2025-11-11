@@ -2,7 +2,11 @@ import java.util.Scanner;
 
 class Control{
     boolean running = false;
-    public static Scanner scanner;
+    private Scanner scanner;
+
+    Control(){
+        this.scanner = new Scanner(System.in);
+    }
 
     public boolean isRunning(){
         return running;
@@ -11,15 +15,7 @@ class Control{
     public void initialise(){
         //to be implemented
     }
-
-    public void displayInterface(){
-        // quoter for user what user wants to do
-    }
-
-    public void displayTimetable(){ //subject to change
-        // add implementation
-    }
-
+    
     void exit(){
         scanner.close();
         running = false;

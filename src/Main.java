@@ -1,9 +1,8 @@
 public class Main{
     static void main(String[] args){
-        Control control = new Control();
+        //Data data = new Data();
 
-        control.initialise(); 
-        while(control.isRunning()){
-        }
+        //data.initialise();
+        //data.readUserData(); 
     }
 }

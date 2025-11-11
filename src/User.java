@@ -16,8 +16,8 @@ class User{
             return null;
         }
 
-        public int toInt(UserType t){
-            switch(t){
+        public int toInt(){
+            switch(this){
             case student:
                 return 0;
             case lecturer:
@@ -27,16 +27,22 @@ class User{
             case admin:
                 return 3;
             }
+            return -1;
         } 
     }
 
     private String username;
     private String password;
-    UserType type;
+    private UserType type;
 
     User(String username, String password, int type){
         this.username = username;
         this.password = password;
         this.type = UserType.toUserType(type);
+    }
+
+    //debuging stuff
+    public void printInfo(){
+        IO.println(this.username + " " + this.password + " " + this.type.toInt());
     }
 }

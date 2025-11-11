@@ -13,7 +13,7 @@ public class CommandLineInterface extends View {
 
     @Override
     public void displayInterface() {
-
+        System.out.println("hello");
     }
 
     @Override
@@ -22,7 +22,7 @@ public class CommandLineInterface extends View {
 
         System.out.print("Enter username: ");
         loginDetails[0] = scanner.nextLine();
-        System.out.print("\nEnter password: ");
+        System.out.print("Enter password: ");
         loginDetails[1] = scanner.nextLine();
 
         return loginDetails;

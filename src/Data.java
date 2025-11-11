@@ -40,7 +40,7 @@ class Data {
             }*/
         }
         catch(FileNotFoundException e){
-            IO.println("Reading failed");
+            System.out.println("Reading failed");
             e.printStackTrace();
         }
     }

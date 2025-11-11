@@ -1,20 +1,23 @@
-class User {
-    public enum UserType {
-        student, lecturer, staff, admin;
+class User{
+    public enum UserType{
+        student, lecturer, stuff, admin;
 
-        public static  UserType toUserType(int i) {
-            return switch (i) {
-                case 0 -> student;
-                case 1 -> lecturer;
-                case 2 -> staff;
-                case 3 -> admin;
-                default -> null;
-            };
+        public static  UserType toUserType(int i){
+            switch(i){
+            case 0:
+                return student;
+            case 1:
+                return lecturer;
+            case 2:
+                return  stuff;
+            case 3:
+                return admin;
+            }
+            return null;
         }
 
-<<<<<<< Updated upstream
-        public int toInt(){
-            switch(this){
+        public int toInt(UserType t){
+            switch(t){
             case student:
                 return 0;
             case lecturer:
@@ -24,32 +27,16 @@ class User {
             case admin:
                 return 3;
             }
-            return -1;
         } 
-=======
-        public int toInt(UserType t) {
-            return switch (t) {
-                case student -> 0;
-                case lecturer -> 1;
-                case staff -> 2;
-                case admin -> 3;
-            };
-        }
->>>>>>> Stashed changes
     }
 
     private String username;
     private String password;
-    private UserType type;
+    UserType type;
 
-    User(String username, String password, int type) {
+    User(String username, String password, int type){
         this.username = username;
         this.password = password;
         this.type = UserType.toUserType(type);
-    }
-
-    //debuging stuff
-    public void printInfo(){
-        IO.println(this.username + " " + this.password + " " + this.type.toInt());
     }
 }

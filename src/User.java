@@ -1,23 +1,23 @@
 class User {
     public enum UserType {
-        student, lecturer, staff, admin;
+    STUDENT, LECTURER, STAFF, ADMIN;
 
         public static  UserType toUserType(int i) {
             return switch (i) {
-                case 0 -> student;
-                case 1 -> lecturer;
-                case 2 -> staff;
-                case 3 -> admin;
+                case 0 -> STUDENT;
+                case 1 -> LECTURER;
+                case 2 -> STAFF;
+                case 3 -> ADMIN;
                 default -> null;
             };
         }
 
         public int toInt(UserType t) {
             return switch (t) {
-                case student -> 0;
-                case lecturer -> 1;
-                case staff -> 2;
-                case admin -> 3;
+                case STUDENT -> 0;
+                case LECTURER -> 1;
+                case STAFF -> 2;
+                case ADMIN -> 3;
             };
         }
     }

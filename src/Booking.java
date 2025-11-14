@@ -1,5 +1,5 @@
 class Booking {
-    private int start; // maybe we can just use int?
+    private int start; // we will just use int
     private int end;
     private Day day;
     private int week;

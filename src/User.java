@@ -1,34 +1,23 @@
 class User {
-    public enum UserType {
-    STUDENT, LECTURER, STAFF, ADMIN;
-
-        public static  UserType toUserType(int i) {
-            return switch (i) {
-                case 0 -> STUDENT;
-                case 1 -> LECTURER;
-                case 2 -> STAFF;
-                case 3 -> ADMIN;
-                default -> null;
-            };
-        }
-
-        public int toInt(UserType t) {
-            return switch (t) {
-                case STUDENT -> 0;
-                case LECTURER -> 1;
-                case STAFF -> 2;
-                case ADMIN -> 3;
-            };
-        }
-    }
-
     private String username;
     private String password;
     UserType type;
 
-    User(String username, String password, int type) {
+    User(String username, String password, UserType userType) {
         this.username = username;
         this.password = password;
-        this.type = UserType.toUserType(type);
+        this.type = userType;
+    }
+
+    public String getUsername(){
+        return this.username;
+    }
+
+    public String getPassword(){
+        return this.password;
+    }
+
+    public boolean compare(String username, String password){
+        return (this.username.equals(username)) && (this.password.equals(password));
     }
 }

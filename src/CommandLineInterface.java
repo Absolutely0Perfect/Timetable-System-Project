@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class CommandLineInterface extends View {
-    private static Scanner scanner;
+    private Scanner scanner;
 
     CommandLineInterface() {
         scanner = new Scanner(System.in);

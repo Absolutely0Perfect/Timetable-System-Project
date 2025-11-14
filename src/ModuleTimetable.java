@@ -1,4 +1,4 @@
-// import java.time.DayOfWeek; we alrea have an enum for it
+//import java.time.DayOfWeek; we alrea have an enum for it
 import java.time.LocalTime;
 import java.util.LinkedList;
 //import java.util.*; // legendary))

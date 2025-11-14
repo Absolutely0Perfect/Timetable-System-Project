@@ -2,46 +2,56 @@ import java.util.LinkedList;
 import java.io.File;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 import java.io.FileNotFoundException;
 
 class Data {
     private LinkedList<User> users;
-    
     private File userData;
     private File moulesData;
 
-    void initialise(){
-        users = new LinkedList();
+    public Data(){
+        users = new LinkedList<>();
         userData = new File("../Data/users.csv");
+
+        readUserData();
     }
 
-    public void readUserData(){
+    private void readUserData(){
         try (Scanner scanner = new Scanner(userData)){
             Pattern p = Pattern.compile("\\w+|$");
+            Matcher match;
 
+            String curentLine;
             String username;
             String password;
-            int type;
+            int userType;
 
             while(scanner.hasNext()){
-                //username = scanner.next(p);
-                //IO.println(scanner.next(p));
-                //password = scanner.next(p);
-                //IO.println(scanner.next(p));
-                //type = scanner.nextInt();
-                //IO.println(scanner.nextInt());
+                curentLine = scanner.next();
+                match = p.matcher(curentLine);
 
-                //users.add(new User(username, password, type));
+                match.find();
+                username = curentLine.substring(match.start(), match.end());
+                match.find();
+                password = curentLine.substring(match.start(), match.end());
+                match.find();
+                userType = Integer.parseInt(curentLine.substring(match.start(), match.end()));
+
+                users.add(new User(username, password, UserType.toUserType(userType)));
             }
-
-            //remove after testing
-            /*for(int i = 0; i < users.size(); i++){
-                users.get(i).printInfo();
-            }*/
         }
         catch(FileNotFoundException e){
-            System.out.println("Reading failed");
-            e.printStackTrace();
+            System.out.println("File not found");
         }
+    }
+
+    public User findUser(String username, String password){
+        for(int i = 0; i < users.size(); i++){
+            if (users.get(i).compare(username, password)){
+                return users.get(i);
+            }
+        }
+        return null;
     }
 }

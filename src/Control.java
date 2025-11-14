@@ -16,7 +16,6 @@ class Control {
         data = new Data();
         view = new CommandLineInterface(); // should be a drop in replacement for gui class if we need to make one
         running = true;
-        displayInterface();
     }
 
     public void update(){
@@ -25,7 +24,7 @@ class Control {
         }
 
         int userInput = -1;
-        userInput = view.displayInterface();
+        userInput = view.displayInterface(currentUser.getUserType());
     }
 
     private void login() {

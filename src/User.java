@@ -1,12 +1,12 @@
 class User {
     private String username;
     private String password;
-    UserType type;
+    UserType userType;
 
     User(String username, String password, UserType userType) {
         this.username = username;
         this.password = password;
-        this.type = userType;
+        this.userType = userType;
     }
 
     public String getUsername(){
@@ -15,6 +15,10 @@ class User {
 
     public String getPassword(){
         return this.password;
+    }
+
+    public UserType getUserType(){
+        return this.userType;
     }
 
     public boolean compare(String username, String password){

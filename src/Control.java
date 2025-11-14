@@ -2,6 +2,7 @@ import java.util.Arrays;
 
 class Control {
     private boolean running = false;
+    private boolean userLogged = false;
     private Data data;
     private View view;
     private User currentUser = null;
@@ -18,7 +19,16 @@ class Control {
         displayInterface();
     }
 
-    public void displayInterface() {
+    public void update(){
+        if(!userLogged){
+            login();
+        }
+
+        int userInput = -1;
+        userInput = view.displayInterface();
+    }
+
+    private void login() {
         // quoter for user what user wants to do
         while (true) {
             String[] loginDetails = view.displayLogin();
@@ -29,11 +39,10 @@ class Control {
             }
             else{
                 IO.println("Welcome " + currentUser.getUsername() + "!");
+                userLogged = true;
                 break;
             }
         }
-
-        view.displayInterface();
     }
 
     public void displayTimetable() { //subject to change

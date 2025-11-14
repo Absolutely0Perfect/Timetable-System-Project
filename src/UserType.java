@@ -1,5 +1,6 @@
 public enum UserType {
-STUDENT, LECTURER, STAFF, ADMIN;
+    STUDENT, LECTURER, STAFF, ADMIN;
+
     public static  UserType toUserType(int i) {
         return switch (i) {
             case 0 -> STUDENT;
@@ -9,6 +10,7 @@ STUDENT, LECTURER, STAFF, ADMIN;
             default -> null;
         };
     }
+    
     public int toInt(UserType t) {
         return switch (t) {
             case STUDENT -> 0;

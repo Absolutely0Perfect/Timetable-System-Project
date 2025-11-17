@@ -1,3 +1,7 @@
+/**
+ * enumerator of class User
+ */
+
 public enum UserType {
     STUDENT, LECTURER, STAFF, ADMIN;
 

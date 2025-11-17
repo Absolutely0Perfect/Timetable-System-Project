@@ -1,5 +1,8 @@
 import java.util.LinkedList;
 
+/**
+ * This also communicates with view to create a Timetable for Room and stores all relevent information about room
+ */
 class Rooms{
     private String name;
     private LinkedList<Booking> bookings;

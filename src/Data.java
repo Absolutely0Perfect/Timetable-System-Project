@@ -17,6 +17,12 @@ class Data {
         readUserData();
     }
 
+    /**
+     * This class reads and stores data from other classes
+     * takes the information and gives it to other classes
+     * it also takes the information and creates new informaiton with it
+     */
+
     private void readUserData(){
         try (Scanner scanner = new Scanner(userData)){
             Pattern p = Pattern.compile("\\w+|$");

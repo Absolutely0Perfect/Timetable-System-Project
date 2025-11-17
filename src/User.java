@@ -1,3 +1,8 @@
+/**
+ * This is the class to make a login
+ * Uses Usertype, password and username
+ */
+
 class User {
     private String username;
     private String password;

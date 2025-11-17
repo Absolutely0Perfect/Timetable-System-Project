@@ -1,3 +1,7 @@
+/**
+ * Displays infomration to user based on inputs folowing Usertype
+ */
+
 abstract class View {
     abstract public void exit();
     abstract public void displayTimetable();

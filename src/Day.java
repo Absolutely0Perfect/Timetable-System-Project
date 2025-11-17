@@ -1,5 +1,5 @@
 /**
- * This class is an enumerator for the days of the week
+ * <p> This class is an enumerator for the days of the week</p>
  */
 public enum Day {
         MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY;

@@ -1,8 +1,8 @@
 import java.util.Arrays;
 
 /**
- * This class is to manages the flow of information form the other classes
- * It also controls the execution of the programme
+ * <p> This class is to manages the flow of information form the other classes
+ * It also controls the execution of the programme</p>
  */
 class Control {
     private boolean running = false;

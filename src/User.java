@@ -1,6 +1,6 @@
 /**
- * This is the class to make a login
- * Uses Usertype, password and username
+ * <p> This is the class to make a login
+ * Uses Usertype, password and username </p>
  */
 
 class User {

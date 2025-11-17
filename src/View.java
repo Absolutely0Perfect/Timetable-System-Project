@@ -1,5 +1,5 @@
 /**
- * Displays infomration to user based on inputs folowing Usertype
+ * <p>Displays infomration to user based on inputs folowing Usertype </p>
  */
 
 abstract class View {

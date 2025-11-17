@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 
 /**
- * This also communicates with view to create a Timetable for Room and stores all relevent information about room
+ * <p> This also communicates with view to create a Timetable for Room and stores all relevent information about room </p>
  */
 class Rooms{
     private String name;

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 /**
- * This Class stores any nessecary infomartion to create a cell for Timetable
+ * <p>This Class stores any nessecary infomartion to create a cell for Timetable </p>
  */
 class TimeSlot {
     String moduleName;

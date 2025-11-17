@@ -18,9 +18,9 @@ class Data {
     }
 
     /**
-     * This class reads and stores data from other classes
+     * <p> This class reads and stores data from other classes
      * takes the information and gives it to other classes
-     * it also takes the information and creates new informaiton with it
+     * it also takes the information and creates new informaiton with it </p>
      */
 
     private void readUserData(){

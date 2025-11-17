@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
 /**
-*This class is the CLI Used to Display any Inputs the user needs to input
- * Referenece from the View Class
+*  <p> This class is the CLI Used to Display any Inputs the user needs to input
+ * Referenece from the View Class </p>
 */
 public class CommandLineInterface extends View {
     private Scanner scanner;

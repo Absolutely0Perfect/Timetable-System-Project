@@ -19,11 +19,11 @@ public class CommandLineInterface extends View {
     public int displayInterface(UserType userType) {
         switch (userType) {
             case STUDENT:
-            System.out.println("1. Display Module Timetable, 2. Display Course Timetable, 3. Display Student Timetable, 0. Display Room Timetable, 5. Exit");
+            System.out.println("1. Display Module Timetable, 2. Display Course Timetable, 3. Display Student Timetable, 4. Display Room Timetable, 0. Exit");
             // For Studnet
                 break;
             case LECTURER:
-            System.out.println("1. Display Module Timetable, 2. Display Course Timetable, 3. Display Lecturer Timetable, 0. Display Room Timetable, 5. Exit");
+            System.out.println("1. Display Module Timetable, 2. Display Course Timetable, 3. Display Lecturer Timetable, 4. Display Room Timetable, 0. Exit");
             // For Lectuerer
                 break;
             case STAFF:

@@ -1,5 +1,4 @@
 import java.util.Arrays;
-
 /**
  * <p> This class is to manages the flow of information form the other classes
  * It also controls the execution of the programme</p>

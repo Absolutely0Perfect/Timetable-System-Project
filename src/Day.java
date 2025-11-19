@@ -26,7 +26,6 @@ public enum Day {
                 case FRIDAY -> 4;
                 case SATURDAY -> 5;
                 case SUNDAY -> 6;
-                default -> null;
             };
         }
     }

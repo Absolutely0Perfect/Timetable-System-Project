@@ -4,28 +4,28 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.io.FileNotFoundException;
-
+/**
+ * <p> This class reads and stores data from other classes
+ * takes the information and gives it to other classes
+ * it also takes the information and creates new informaiton with it </p>
+ */
 class Data {
     private LinkedList<User> users;
+    private LinkedList<ModuleTimetable> modules;
     private File userData;
-    private File moulesData;
+    private File modulesData;
 
     public Data(){
         users = new LinkedList<>();
         userData = new File("../Data/users.csv");
+        modulesData = new File("../Data/modules.csv");
 
         readUserData();
     }
 
-    /**
-     * <p> This class reads and stores data from other classes
-     * takes the information and gives it to other classes
-     * it also takes the information and creates new informaiton with it </p>
-     */
-
     private void readUserData(){
         try (Scanner scanner = new Scanner(userData)){
-            Pattern p = Pattern.compile("\\w+|$");
+            Pattern p = Pattern.compile("[^\\,]+");
             Matcher match;
 
             String curentLine;
@@ -52,6 +52,51 @@ class Data {
         }
     }
 
+    private void readModuleData(){
+        try (Scanner scanner = new Scanner(modulesData)){
+            Pattern p = Pattern.compile("[^\\,]+");
+            Matcher match;
+
+            String curentLine;
+            String moduleName;
+            String moduleDates;
+            int day;
+            String hours;
+            String room;
+            int classType;
+            String lecturer;
+
+            while(scanner.hasNext()){
+                curentLine = scanner.next();
+                match = p.matcher(curentLine);
+
+                match.find();
+                moduleName = curentLine.substring(match.start(), match.end());
+                match.find();
+                moduleDates = curentLine.substring(match.start(), match.end());
+                match.find();
+                day = Integer.parseInt(curentLine.substring(match.start(), match.end()));
+                match.find();
+                hours = curentLine.substring(match.start(), match.end());
+                match.find();
+                room = curentLine.substring(match.start(), match.end());
+                match.find();
+                classType = Integer.parseInt(curentLine.substring(match.start(), match.end()));
+                match.find();
+                lecturer = curentLine.substring(match.start(), match.end());
+                
+                if(!findModule(moduleName)){
+                    modules.add(new ModuleTimetable(moduleName));
+                }
+
+                addTimeSlot(new TimeSlot(moduleName, moduleDates, Day.toDay(day), hours, room, ClassType.toClassType(classType), lecturer));
+            }
+        }
+        catch(FileNotFoundException e){
+            System.out.println("File not found");
+        }
+    }
+
     public User findUser(String username, String password){
         for(int i = 0; i < users.size(); i++){
             if (users.get(i).compare(username, password)){
@@ -59,5 +104,22 @@ class Data {
             }
         }
         return null;
+    }
+
+    public boolean findModule(String name){
+        for(ModuleTimetable m : modules){
+            if(m.getName().equals(name)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void addTimeSlot(TimeSlot timeSlot){
+        for(int i = 0; i < modules.size(); i++){
+            if(modules.get(i).getName().equals(timeSlot.getModuleName())){
+                modules.get(i).add(timeSlot);
+            }
+        }
     }
 }

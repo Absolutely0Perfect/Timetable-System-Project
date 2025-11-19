@@ -9,13 +9,19 @@ import java.util.LinkedList;
 // Module calss was just a copy of Cians TimeSlot, redundant
 
 class ModuleTimetable{
-    private LinkedList<TimeSlot> module;
+    private String name;
+    private LinkedList<TimeSlot> moduleTimes;
 
-    public ModuleTimetable(){
-        module = new LinkedList<>();
+    public ModuleTimetable(String name){
+        this.name = name;
+        moduleTimes = new LinkedList<>();
     }
 
-    public void Add(TimeSlot timeSlot){
-        module.add(timeSlot);
+    public void add(TimeSlot timeSlot){
+        moduleTimes.add(timeSlot);
+    }
+
+    public String getName(){
+        return this.name;
     }
 }

@@ -56,7 +56,7 @@ class Control {
 
     public void displayTimetable() { //subject to change
         // add implementation
-        view.displayTimetable(data.getModule("m1"));
+        view.displayTimetable(data.getModule("mc0001"));
     }
 
     void exit() {

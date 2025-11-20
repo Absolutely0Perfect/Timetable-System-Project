@@ -6,26 +6,26 @@ public enum Day {
 
         public static  Day toDay(int i) {
             return switch (i) {
-                case 0 -> MONDAY;
-                case 1 -> TUESDAY;
-                case 2 -> WEDNESDAY;
-                case 3 -> THURSDAY;
-                case 4 -> FRIDAY;
-                case 5 -> SATURDAY;
-                case 6 ->  SUNDAY;
+                case 1 -> MONDAY;
+                case 2 -> TUESDAY;
+                case 3 -> WEDNESDAY;
+                case 4 -> THURSDAY;
+                case 5 -> FRIDAY;
+                case 6 -> SATURDAY;
+                case 7 ->  SUNDAY;
                 default -> null;
             };
         }
 
         public int toInt() {
             return switch (this) {
-                case MONDAY -> 0;
-                case TUESDAY -> 1;
-                case WEDNESDAY -> 2;
-                case THURSDAY -> 3;
-                case FRIDAY -> 4;
-                case SATURDAY -> 5;
-                case SUNDAY -> 6;
+                case MONDAY -> 1;
+                case TUESDAY -> 2;
+                case WEDNESDAY -> 3;
+                case THURSDAY -> 4;
+                case FRIDAY -> 5;
+                case SATURDAY -> 6;
+                case SUNDAY -> 7;
             };
         }
     }

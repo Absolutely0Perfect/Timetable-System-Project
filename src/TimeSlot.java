@@ -41,6 +41,8 @@ class TimeSlot {
 
     public void setModuleDates(String moduleDates) {this.moduleDates = moduleDates;}
 
+    public ClassType getClassType(){return classType;}
+
     public int getStart() {return start;}
 
     public int getEnd() {return end;}

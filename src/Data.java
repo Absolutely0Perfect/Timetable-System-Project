@@ -17,10 +17,12 @@ class Data {
 
     public Data(){
         users = new LinkedList<>();
+        modules = new LinkedList<>();
         userData = new File("../Data/users.csv");
         modulesData = new File("../Data/modules.csv");
 
         readUserData();
+        readModuleData();
     }
 
     private void readUserData(){
@@ -54,6 +56,7 @@ class Data {
 
     private void readModuleData(){
         try (Scanner scanner = new Scanner(modulesData)){
+            IO.println("Found a file!");
             Pattern p = Pattern.compile("[^\\,]+");
             Matcher match;
 
@@ -90,6 +93,7 @@ class Data {
                 
                 if(!findModule(moduleName)){
                     modules.add(new ModuleTimetable(moduleName));
+                    IO.println("Added module" + moduleName);
                 }
 
                 addTimeSlot(new TimeSlot(moduleName, moduleDates, Day.toDay(day), start, end, room, ClassType.toClassType(classType), lecturer));

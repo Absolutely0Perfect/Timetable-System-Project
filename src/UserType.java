@@ -15,8 +15,8 @@ public enum UserType {
         };
     }
     
-    public int toInt(UserType t) {
-        return switch (t) {
+    public int toInt() {
+        return switch (this) {
             case STUDENT -> 0;
             case LECTURER -> 1;
             case STAFF -> 2;

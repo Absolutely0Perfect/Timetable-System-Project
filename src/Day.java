@@ -17,8 +17,8 @@ public enum Day {
             };
         }
 
-        public int toInt(Day t) {
-            return switch (t) {
+        public int toInt() {
+            return switch (this) {
                 case MONDAY -> 0;
                 case TUESDAY -> 1;
                 case WEDNESDAY -> 2;

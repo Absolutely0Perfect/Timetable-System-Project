@@ -8,8 +8,8 @@ public enum ClassType {
             default -> null;
         };
     }
-    public int toInt(ClassType t) {
-        return switch (t) {
+    public int toInt() {
+        return switch (this) {
             case LECTUER -> 0;
             case LAB -> 1;
             case TUTORIAL -> 2;

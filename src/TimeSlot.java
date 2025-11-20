@@ -33,6 +33,10 @@ class TimeSlot {
         this.moduleName = moduleName;
     }
 
+    public Day getDay(){
+        return this.day;
+    }
+
     public String getModuleDates() {return moduleDates;}
 
     public void setModuleDates(String moduleDates) {this.moduleDates = moduleDates;}

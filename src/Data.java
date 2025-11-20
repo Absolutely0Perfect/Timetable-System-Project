@@ -61,7 +61,8 @@ class Data {
             String moduleName;
             String moduleDates;
             int day;
-            String hours;
+            int start;
+            int end;
             String room;
             int classType;
             String lecturer;
@@ -77,7 +78,9 @@ class Data {
                 match.find();
                 day = Integer.parseInt(curentLine.substring(match.start(), match.end()));
                 match.find();
-                hours = curentLine.substring(match.start(), match.end());
+                start = Integer.parseInt(curentLine.substring(match.start(), match.end()));
+                match.find();
+                end = Integer.parseInt(curentLine.substring(match.start(), match.end()));
                 match.find();
                 room = curentLine.substring(match.start(), match.end());
                 match.find();
@@ -89,7 +92,7 @@ class Data {
                     modules.add(new ModuleTimetable(moduleName));
                 }
 
-                addTimeSlot(new TimeSlot(moduleName, moduleDates, Day.toDay(day), hours, room, ClassType.toClassType(classType), lecturer));
+                addTimeSlot(new TimeSlot(moduleName, moduleDates, Day.toDay(day), start, end, room, ClassType.toClassType(classType), lecturer));
             }
         }
         catch(FileNotFoundException e){

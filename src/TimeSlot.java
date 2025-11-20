@@ -6,18 +6,19 @@ import java.util.ArrayList;
 class TimeSlot {
     String moduleName;
     String moduleDates;
-    String hours;
-    String room;
-    String classtype;
-    String lecturer;
     Day day;
+    int start;
+    int end;
+    String room;
     ClassType classType;
+    String lecturer;
 
-    public TimeSlot(String moduleName, String moduleDates, Day day, String hours, String room, ClassType classType, String lecturer) {
+    public TimeSlot(String moduleName, String moduleDates, Day day, int start, int end, String room, ClassType classType, String lecturer) {
         this.moduleName = moduleName;
         this.moduleDates = moduleDates;
         this.day = day;
-        this.hours = hours;
+        this.start = start;
+        this.end = end;
         this.room = room;
         this.classType = classType;
         this.lecturer = lecturer;
@@ -36,9 +37,9 @@ class TimeSlot {
 
     public void setModuleDates(String moduleDates) {this.moduleDates = moduleDates;}
 
-    public String getHours() {return hours;}
+    public int getStart() {return start;}
 
-    public void setHours(String hours) {this.hours = hours;}
+    public int getEnd() {return end;}
 
     public String getRoom() {return room;}
 

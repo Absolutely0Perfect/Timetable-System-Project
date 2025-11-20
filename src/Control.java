@@ -28,6 +28,8 @@ class Control {
 
         int userInput = -1;
         userInput = view.displayInterface(currentUser.getUserType());
+
+        
     }
 
     private void login() {

@@ -28,7 +28,12 @@ class Control {
 
         int userInput = -1;
         userInput = view.displayInterface(currentUser.getUserType());
-
+        switch(userInput){
+            case 0: exit();
+            break;
+            case 1: displayTimetable();
+            break;
+        }
         
     }
 
@@ -51,7 +56,7 @@ class Control {
 
     public void displayTimetable() { //subject to change
         // add implementation
-        view.displayTimetable();
+        view.displayTimetable(data.getModule("m1"));
     }
 
     void exit() {

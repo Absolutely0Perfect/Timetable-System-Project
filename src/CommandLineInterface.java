@@ -1,5 +1,5 @@
 import java.util.Scanner;
-
+import java.util.LinkedList;
 /**
 *  <p> This class is the CLI Used to Display any Inputs the user needs to input
  * Referenece from the View Class </p>
@@ -11,13 +11,36 @@ public class CommandLineInterface extends View {
         scanner = new Scanner(System.in);
     }
 
-    public void displayTimetable() {
+    @Overide
+    public void displayTimetable(ModuleTimetable module) {
+        LinkedList<TimeSlot> slots = module.getModuleTimes();
 
+        int previousTime = 0;
+        int previousDay = 0;
+        int time;
+        int day;
+        for(int i = 0; i < slots.size(); i++){
+            time  = slots.get(i).getStart();
+            day  = slots.get(i).getDay().toInt();
+
+            for(int j = previous; j <= stop - 10; j++){
+                IO.println("-------------------------------------------------------------------------------------------------");
+                IO.println("|               |               |               |               |               |               |");
+            }
+
+
+            previousTime = time;
+            previousDay = day;
+        }
+        System.out.println();
     }
 
     @Override
     public int displayInterface(UserType userType) {
-        switch (userType) {
+
+        System.out.println("1. Display Module Timetable, 0. Exit");
+        return scanner.nextInt();
+        /*switch (userType) {
             case STUDENT:
             System.out.println("1. Display Module Timetable, 2. Display Course Timetable, 3. Display Student Timetable, 4. Display Room Timetable, 0. Exit");
             // For Studnet
@@ -35,10 +58,8 @@ public class CommandLineInterface extends View {
             // For Admin
                 break;
             default:
-                System.out.println("Invalid input");
-        }
-        return 0;
-    }
+                System.out.println("Invalid input"); */
+        }//to be implemnted later
 
     @Override
     public String[] displayLogin() {

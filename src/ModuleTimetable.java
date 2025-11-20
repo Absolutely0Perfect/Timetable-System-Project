@@ -22,6 +22,10 @@ class ModuleTimetable{
         moduleTimes.add(timeSlot);
     }
 
+    public LinkedList<TimeSlot> getModuleTimes() {
+        return moduleTimes;
+    }
+
     public String getName(){
         return this.name;
     }

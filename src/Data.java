@@ -125,4 +125,13 @@ class Data {
             }
         }
     }
+    public ModuleTimetable getModule(String moduleName){
+        for(int i = 0; i < modules.size(); i++){
+            if(modules.get(i).getName().equals(moduleName)){
+                return modules.get(i);
+            }
+        }
+        return null;
+    }
 }
+

@@ -18,6 +18,7 @@ public class CommandLineInterface extends View {
         String[] buffer = {"", "", "", "", ""};
 
         int currentDay = -1;
+        boolean theRowPrinted = false;
         int previousTime = 0;
         int previousDay = 5;
         int time;
@@ -37,6 +38,7 @@ public class CommandLineInterface extends View {
     
                 if(j == 5){
                     printBuffer(buffer);
+                    theRowPrinted = false;
                     currentDay = -1;
                 }
                 else{
@@ -50,8 +52,9 @@ public class CommandLineInterface extends View {
                 IO.println("|               |               |               |               |               |               |");
             }
 
-            if(currentDay < 0){
+            if(!theRowPrinted){
                 IO.println("-------------------------------------------------------------------------------------------------");
+                theRowPrinted = true;
             }
 
             for(int j = Math.max(0, currentDay); j < day; j++){
@@ -61,20 +64,24 @@ public class CommandLineInterface extends View {
             }
 
             appendSlotToBuffer(buffer, slots.get(i));
+            currentDay = day + 1;
             if(day == 5){
                 printBuffer(buffer);
+                theRowPrinted = false;
                 currentDay = -1;
             }
 
             previousTime = time;
             previousDay = day;
         }
-        for(int j = previousDay + 1; j <= 5; j++){
-            for(int k = 0; k < 5; k++){
-                buffer[k] += "|               ";
+        if(previousDay != 5){
+            for(int j = previousDay + 1; j <= 5; j++){
+                for(int k = 0; k < 5; k++){
+                    buffer[k] += "|               ";
+                }
             }
+            printBuffer(buffer);
         }
-        printBuffer(buffer);
         for(int j = previousTime + 1; j <= 8; j++){
             IO.println("-------------------------------------------------------------------------------------------------");
             IO.println("|               |               |               |               |               |               |");

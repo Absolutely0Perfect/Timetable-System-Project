@@ -16,10 +16,10 @@ class Data {
     private File modulesData;
 
     public Data(){
-        users = new ArrayList<>();
-        modules = new ArrayList<>();
-        userData = new File("../Data/users.csv");
-        modulesData = new File("../Data/modules.csv");
+        this.users = new ArrayList<>();
+        this.modules = new ArrayList<>();
+        this.userData = new File("../Data/users.csv");
+        this.modulesData = new File("../Data/modules.csv");
 
         readUserData();
         readModuleData();
@@ -46,7 +46,7 @@ class Data {
                 match.find();
                 userType = Integer.parseInt(curentLine.substring(match.start(), match.end()));
 
-                users.add(new User(username, password, UserType.toUserType(userType)));
+                this.users.add(new User(username, password, UserType.toUserType(userType)));
             }
         }
         catch(FileNotFoundException e){
@@ -92,7 +92,7 @@ class Data {
                 lecturer = curentLine.substring(match.start(), match.end());
                 
                 if(!findModule(moduleName)){
-                    modules.add(new ModuleTimetable(moduleName));
+                    this.modules.add(new ModuleTimetable(moduleName));
                     IO.println("Added module" + moduleName);
                 }
 
@@ -105,16 +105,16 @@ class Data {
     }
 
     public User findUser(String username, String password){
-        for(int i = 0; i < users.size(); i++){
-            if (users.get(i).compare(username, password)){
-                return users.get(i);
+        for(User u : this.users){
+            if (u.compare(username, password)){
+                return u;
             }
         }
         return null;
     }
 
     public boolean findModule(String name){
-        for(ModuleTimetable m : modules){
+        for(ModuleTimetable m : this.modules){
             if(m.getName().equals(name)){
                 return true;
             }
@@ -123,19 +123,27 @@ class Data {
     }
 
     public void addTimeSlot(TimeSlot timeSlot){
-        for(int i = 0; i < modules.size(); i++){
-            if(modules.get(i).getName().equals(timeSlot.getModuleName())){
-                modules.get(i).add(timeSlot);
+        for(int i = 0; i < this.modules.size(); i++){
+            if(this.modules.get(i).getName().equals(timeSlot.getModuleName())){
+                this.modules.get(i).add(timeSlot);
             }
         }
     }
     public ModuleTimetable getModule(String moduleName){
-        for(int i = 0; i < modules.size(); i++){
-            if(modules.get(i).getName().equals(moduleName)){
-                return modules.get(i);
+        for(ModuleTimetable m : this.modules){
+            if(m.getName().equals(moduleName)){
+                return m;
             }
         }
         return null;
+    }
+
+    public ArrayList<String> getAllModuleNames(){
+        ArrayList<String> constructed = new ArrayList<>();
+        for(ModuleTimetable m : this.modules){
+            constructed.add(m.getName());
+        }
+        return constructed;
     }
 }
 

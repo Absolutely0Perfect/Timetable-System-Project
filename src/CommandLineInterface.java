@@ -6,10 +6,22 @@ import java.util.ArrayList;
 */
 public class CommandLineInterface extends View {
     private Scanner scanner;
-    public final int width = 20;
+    public final int width = 25;
 
     CommandLineInterface() {
         scanner = new Scanner(System.in);
+    }
+
+    @Override
+    public String moduleSelection(ArrayList<String> names){
+        IO.println("Select a Module to display");
+
+        for(int i = 0; i < names.size(); i++){
+            IO.println(i + ":" + names.get(i));
+        }
+        int userChoice = scanner.nextInt();
+
+        return names.get(userChoice);
     }
 
     @Override
@@ -18,10 +30,10 @@ public class CommandLineInterface extends View {
 
         String[] buffer = {"", "", "", "", ""};
 
-        int currentDay = -1;
+        int currentDay = -1; // this is current PRINTING day e. g. the place where we stopped in the row printing
         boolean theRowPrinted = false;
         int previousTime = 0;
-        int previousDay = 5;
+        int previousDay = 5; // this is the day last proccesed timeslot was in
         int time;
         int day;
 
@@ -31,7 +43,7 @@ public class CommandLineInterface extends View {
             time  = slots.get(i).getStart() - 9; // offset so that 0 equals 9 am
             day  = slots.get(i).getDay().toInt() - 1;
 
-            for(int j = previousDay + 1; j <= 5 && (j < day || previousTime < time); j++){
+            for(int j = previousDay + 1; j <= 5 && (j < day || previousTime < time); j++){// this part is to finish started rows
                 appendEmptySlotToBuffer(buffer);
     
                 if(j == 5){
@@ -44,20 +56,20 @@ public class CommandLineInterface extends View {
                 }
             }
             
-            for(int j = previousTime + 1; j <= time - 1; j++){
+            for(int j = previousTime + 1; j <= time - 1; j++){ // skip through rows without any info
                 printEmptyRow();
             }
 
-            if(!theRowPrinted){
+            if(!theRowPrinted){ // checks if we are in the middle of printing a row
                 printRowBreak();
                 theRowPrinted = true;
             }
 
-            for(int j = Math.max(0, currentDay); j < day; j++){
+            for(int j = Math.max(0, currentDay); j < day; j++){// fills the row with info with empy slots in 
                 appendEmptySlotToBuffer(buffer);
             }
 
-            appendSlotToBuffer(buffer, slots.get(i));
+            appendSlotToBuffer(buffer, slots.get(i)); // adds info to the row
             currentDay = day + 1;
             if(day == 5){
                 printBuffer(buffer);
@@ -67,7 +79,8 @@ public class CommandLineInterface extends View {
 
             previousTime = time;
             previousDay = day;
-        }
+        } 
+        // from here we just fill the rest of the timetable with empty slots 
         if(previousDay != 5){
             for(int j = previousDay + 1; j <= 5; j++){
                 appendEmptySlotToBuffer(buffer);

@@ -13,7 +13,7 @@ public class CommandLineInterface extends View {
 
     @Override
     public void displayTimetable(ModuleTimetable module) {
-        ArrayList<TimeSlot> slots = module.getModuleTimes();
+        ArrayList<TimeSlot> slots = module.times;
 
         String[] buffer = {"", "", "", "", ""};
 

@@ -9,21 +9,21 @@ import java.util.Collections;
 // Module calss was just a copy of Cians TimeSlot, redundant
 
 class ModuleTimetable {
-    private String name;
-    private ArrayList<TimeSlot> moduleTimes;
+    String name;
+    ArrayList<TimeSlot> times;
 
     public ModuleTimetable(String name){
         this.name = name;
-        moduleTimes = new ArrayList<>();
-        Collections.sort(this.moduleTimes);
+        this.times = new ArrayList<>();
     }
 
     public void add(TimeSlot timeSlot){
-        moduleTimes.add(timeSlot);
+        this.times.add(timeSlot);
+        Collections.sort(this.times);
     }
 
-    public ArrayList<TimeSlot> getModuleTimes() {
-        return moduleTimes;
+    public ArrayList<TimeSlot> getTimes() {
+        return this.times;
     }
 
     public String getName(){

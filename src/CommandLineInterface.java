@@ -6,6 +6,7 @@ import java.util.ArrayList;
 */
 public class CommandLineInterface extends View {
     private Scanner scanner;
+    public final int width = 20;
 
     CommandLineInterface() {
         scanner = new Scanner(System.in);
@@ -24,17 +25,14 @@ public class CommandLineInterface extends View {
         int time;
         int day;
 
-        IO.println("-------------------------------------------------------------------------------------------------");
-        IO.println("|               |               |               |               |               |               |");
+        printEmptyRow();
 
         for(int i = 0; i < slots.size(); i++){
             time  = slots.get(i).getStart() - 9; // offset so that 0 equals 9 am
             day  = slots.get(i).getDay().toInt() - 1;
 
             for(int j = previousDay + 1; j <= 5 && (j < day || previousTime < time); j++){
-                for(int k = 0; k < 5; k++){
-                    buffer[k] += "|               ";
-                }
+                appendEmptySlotToBuffer(buffer);
     
                 if(j == 5){
                     printBuffer(buffer);
@@ -47,19 +45,16 @@ public class CommandLineInterface extends View {
             }
             
             for(int j = previousTime + 1; j <= time - 1; j++){
-                IO.println("-------------------------------------------------------------------------------------------------");
-                IO.println("|               |               |               |               |               |               |");
+                printEmptyRow();
             }
 
             if(!theRowPrinted){
-                IO.println("-------------------------------------------------------------------------------------------------");
+                printRowBreak();
                 theRowPrinted = true;
             }
 
             for(int j = Math.max(0, currentDay); j < day; j++){
-                for(int k = 0; k < 5; k++){
-                    buffer[k] += "|               ";
-                }
+                appendEmptySlotToBuffer(buffer);
             }
 
             appendSlotToBuffer(buffer, slots.get(i));
@@ -75,17 +70,34 @@ public class CommandLineInterface extends View {
         }
         if(previousDay != 5){
             for(int j = previousDay + 1; j <= 5; j++){
-                for(int k = 0; k < 5; k++){
-                    buffer[k] += "|               ";
-                }
+                appendEmptySlotToBuffer(buffer);
             }
             printBuffer(buffer);
         }
         for(int j = previousTime + 1; j <= 8; j++){
-            IO.println("-------------------------------------------------------------------------------------------------");
-            IO.println("|               |               |               |               |               |               |");
+            printEmptyRow();
         }
-        IO.println("-------------------------------------------------------------------------------------------------");
+        printRowBreak();
+    } // end of display timetable
+
+    private void printRowBreak(){
+        for(int i = 1; i <= (width + 1) * 6; i++){
+            IO.print("-");
+        }
+        IO.println("-");
+    }
+
+    private void printEmptyRow(){
+        printRowBreak();
+        for(int i = 1; i <= (width + 1) * 6; i++){
+            if(i % (width + 1) == 1){
+                IO.print("|");
+            }
+            else{
+                IO.print(" ");
+            }
+        }
+        IO.println("|");
     }
 
     private void printBuffer(String[] buffer){
@@ -96,27 +108,42 @@ public class CommandLineInterface extends View {
         }
     }
 
+    private void appendEmptySlotToBuffer(String[] buffer){
+        for(int i = 0; i < buffer.length; i++){
+            for(int j = 1; j <= (width + 1); j++){
+                if(j % (width + 1) == 1){
+                    buffer[i] += "|";
+                }
+                else{
+                    buffer[i] += " ";
+                }
+            }
+        }
+    }
+
     void appendSlotToBuffer(String[] buffer, TimeSlot timeSlot){
-        if(timeSlot.getStart() < 10){
-            buffer[0] += "|     0" + timeSlot.getStart() + "-" + timeSlot.getEnd() + "     ";
+        String startEnd = (timeSlot.getStart() < 10) ? " " + timeSlot.getStart() + "-" + timeSlot.getEnd() :
+            timeSlot.getStart() + "-" + timeSlot.getEnd();
+        buffer[0] += insertString(startEnd);
+        buffer[1] += insertString(timeSlot.getModuleName() + "-" + timeSlot.getClassType().name());
+        buffer[2] += insertString(timeSlot.getLecturer());
+        buffer[3] += insertString(timeSlot.getRoom());
+        buffer[4] += insertString("Wks:" + timeSlot.getModuleDates());
+    }
+
+    private String insertString(String inserted){
+        String constructedString = "|";
+        for(int i = 0; i < (width - inserted.length()) / 2; i++){
+            constructedString += " ";
         }
-        else{
-            buffer[0] += "|     " + timeSlot.getStart() + "-" + timeSlot.getEnd() + "     ";
+        constructedString += inserted;
+        for(int i = 0; i < (width - inserted.length()) / 2; i++){
+            constructedString += " ";
         }
-        buffer[1] += "|  " + timeSlot.getModuleName() + "-" + timeSlot.getClassType().name() + "   ";
-        buffer[2] += "|";
-        for(int i = 0; i < (15 - timeSlot.getLecturer().length()) / 2; i++){
-            buffer[2] += " ";
+        if((width - inserted.length()) % 2 == 1){
+            constructedString += " ";
         }
-        buffer[2] += timeSlot.getLecturer();
-        for(int i = 0; i < (15 - timeSlot.getLecturer().length()) / 2; i++){
-            buffer[2] += " ";
-        }
-        if(timeSlot.getLecturer().length() % 2 == 0){
-            buffer[2] += " ";
-        }
-        buffer[3] += "|     " + timeSlot.getRoom() + "     ";
-        buffer[4] += "|   Wks:" + timeSlot.getModuleDates() + "    ";
+        return constructedString;
     }
 
     @Override

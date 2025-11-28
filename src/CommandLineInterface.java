@@ -1,5 +1,5 @@
 import java.util.Scanner;
-import java.util.LinkedList;
+import java.util.ArrayList;
 /**
 *  <p> This class is the CLI Used to Display any Inputs the user needs to input
  * Referenece from the View Class </p>
@@ -13,7 +13,7 @@ public class CommandLineInterface extends View {
 
     @Override
     public void displayTimetable(ModuleTimetable module) {
-        LinkedList<TimeSlot> slots = module.getModuleTimes();
+        ArrayList<TimeSlot> slots = module.getModuleTimes();
 
         String[] buffer = {"", "", "", "", ""};
 
@@ -46,7 +46,6 @@ public class CommandLineInterface extends View {
                 }
             }
             
-
             for(int j = previousTime + 1; j <= time - 1; j++){
                 IO.println("-------------------------------------------------------------------------------------------------");
                 IO.println("|               |               |               |               |               |               |");
@@ -118,7 +117,6 @@ public class CommandLineInterface extends View {
         }
         buffer[3] += "|     " + timeSlot.getRoom() + "     ";
         buffer[4] += "|   Wks:" + timeSlot.getModuleDates() + "    ";
-
     }
 
     @Override

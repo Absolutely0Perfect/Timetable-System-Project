@@ -3,7 +3,7 @@ import java.util.ArrayList;
 /**
  * <p>This Class stores any nessecary infomartion to create a cell for Timetable </p>
  */
-class TimeSlot {
+class TimeSlot implements Comparable<TimeSlot>{
     String moduleName;
     String moduleDates;
     Day day;
@@ -54,4 +54,25 @@ class TimeSlot {
     public String getLecturer() {return lecturer;}
 
     public void setLecturer(String lecturer) {this.lecturer = lecturer;}
+
+    @Override
+    public int compareTo(TimeSlot timeSlot){
+        if(this.start == timeSlot.getStart()){
+            if(this.day == timeSlot.getDay()){
+                return 0;
+            }
+            else if(this.day.toInt() < timeSlot.getDay().toInt()){
+                return -1;
+            }
+            else{
+                return 1;
+            }
+        }
+        else if(this.start < timeSlot.getStart()){
+            return -1;
+        }
+        else{
+            return 1;
+        }
+    }
 }

@@ -1,4 +1,4 @@
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.io.File;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -10,14 +10,14 @@ import java.io.FileNotFoundException;
  * it also takes the information and creates new informaiton with it </p>
  */
 class Data {
-    private LinkedList<User> users;
-    private LinkedList<ModuleTimetable> modules;
+    private ArrayList<User> users;
+    private ArrayList<ModuleTimetable> modules;
     private File userData;
     private File modulesData;
 
     public Data(){
-        users = new LinkedList<>();
-        modules = new LinkedList<>();
+        users = new ArrayList<>();
+        modules = new ArrayList<>();
         userData = new File("../Data/users.csv");
         modulesData = new File("../Data/modules.csv");
 

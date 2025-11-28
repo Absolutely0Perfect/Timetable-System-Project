@@ -1,4 +1,4 @@
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 /**
  * <p> This also communicates with view to create a Timetable for Room and stores all relevent information about room </p>
@@ -6,11 +6,11 @@ import java.util.LinkedList;
 class Rooms{
     private String name;
     int capacity;
-    private LinkedList<Booking> bookings;
+    private ArrayList<Booking> bookings;
 
     public Rooms(String name){
         this.name = name;
-        this.bookings = new LinkedList<>();
+        this.bookings = new ArrayList<>();
     }
 
     //public boolean isAvailabile(Booking booking){ // requires new implementation

@@ -1,11 +1,11 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 /**
-*  <p> This class is the CLI Used to Display any Inputs the user needs to input
- * Referenece from the View Class </p>
+*  <p>This class is the CLI used to display any inputs the user needs to input.
+ * Inherited from the abstract View Class.</p>
 */
 public class CommandLineInterface extends View {
-    private Scanner scanner;
+    private final Scanner scanner;
     public final int WIDTH = 25;
 
     CommandLineInterface() {
@@ -33,45 +33,44 @@ public class CommandLineInterface extends View {
         int currentDay = -1; // this is current PRINTING day e. g. the place where we stopped in the row printing
         boolean theRowPrinted = false;
         int previousTime = 0;
-        int previousDay = 5; // this is the day last proccesed timeslot was in
+        int previousDay = 5; // this is the day last processed timeslot was in
         int time;
         int day;
 
         printEmptyRow();
 
-        for(int i = 0; i < slots.size(); i++){
-            time  = slots.get(i).getStart() - 9; // offset so that 0 equals 9 am
-            day  = slots.get(i).getDay().toInt() - 1;
+        for (TimeSlot slot : slots) {
+            time = slot.getStart() - 9; // offset so that 0 equals 9 am
+            day = slot.getDay().toInt() - 1;
 
-            for(int j = previousDay + 1; j <= 5 && (j < day || previousTime < time); j++){// this part is to finish started rows
+            for (int j = previousDay + 1; j <= 5 && (j < day || previousTime < time); j++) {// this part is to finish started rows
                 appendEmptySlotToBuffer(buffer);
-    
-                if(j == 5){
+
+                if (j == 5) {
                     printBuffer(buffer);
                     theRowPrinted = false;
                     currentDay = -1;
-                }
-                else{
+                } else {
                     currentDay = j + 1;
                 }
             }
-            
-            for(int j = previousTime + 1; j <= time - 1; j++){ // skip through rows without any info
+
+            for (int j = previousTime + 1; j <= time - 1; j++) { // skip through rows without any info
                 printEmptyRow();
             }
 
-            if(!theRowPrinted){ // checks if we are in the middle of printing a row
+            if (!theRowPrinted) { // checks if we are in the middle of printing a row
                 printRowBreak();
                 theRowPrinted = true;
             }
 
-            for(int j = Math.max(0, currentDay); j < day; j++){// fills the row with info with empy slots in 
+            for (int j = Math.max(0, currentDay); j < day; j++) {// fills the row with info with empy slots in
                 appendEmptySlotToBuffer(buffer);
             }
 
-            appendSlotToBuffer(buffer, slots.get(i)); // adds info to the row
+            appendSlotToBuffer(buffer, slot); // adds info to the row
             currentDay = day + 1;
-            if(day == 5){
+            if (day == 5) {
                 printBuffer(buffer);
                 theRowPrinted = false;
                 currentDay = -1;
@@ -145,33 +144,30 @@ public class CommandLineInterface extends View {
     }
 
     private String insertString(String inserted){
-        String constructedString = "|";
+        StringBuilder constructedString = new StringBuilder("|");
         for(int i = 0; i < (WIDTH - inserted.length()) / 2; i++){
-            constructedString += " ";
+            constructedString.append(" ");
         }
-        constructedString += inserted;
+        constructedString.append(inserted);
         for(int i = 0; i < (WIDTH - inserted.length()) / 2; i++){
-            constructedString += " ";
+            constructedString.append(" ");
         }
         if((WIDTH - inserted.length()) % 2 == 1){
-            constructedString += " ";
+            constructedString.append(" ");
         }
-        return constructedString;
+        return constructedString.toString();
     }
 
     @Override
     public int displayInterface(UserType userType) {
-
-        System.out.println("1. Display Module Timetable, 0. Exit");
-        return scanner.nextInt();
-        /*switch (userType) {
+        switch (userType) {
             case STUDENT:
             System.out.println("1. Display Module Timetable, 2. Display Course Timetable, 3. Display Student Timetable, 4. Display Room Timetable, 0. Exit");
-            // For Studnet
+            // For Student
                 break;
             case LECTURER:
             System.out.println("1. Display Module Timetable, 2. Display Course Timetable, 3. Display Lecturer Timetable, 4. Display Room Timetable, 0. Exit");
-            // For Lectuerer
+            // For Lecturer
                 break;
             case STAFF:
             System.out.println("1. Display Module Timetable, 2. Display Course Timetable, 3. Display Room Timetable, 0. Exit");
@@ -182,8 +178,10 @@ public class CommandLineInterface extends View {
             // For Admin
                 break;
             default:
-                System.out.println("Invalid input"); */
-        }//to be implemnted later
+                System.out.println("Invalid input");
+        }
+        return scanner.nextInt();
+    }
 
     @Override
     public String[] displayLogin() {

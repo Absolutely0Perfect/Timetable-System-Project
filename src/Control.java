@@ -26,15 +26,22 @@ class Control {
             login();
         }
 
-        int userInput = -1;
+        int userInput;
         userInput = view.displayInterface(currentUser.getUserType());
-        switch(userInput){
-            case 0: exit();
-            break;
-            case 1: displayTimetable();
-            break;
+        if (userInput == 0) {
+            exit();
+            return;
         }
-        
+
+        switch (currentUser.getUserType()) {
+            case ADMIN: switch (userInput) {
+                case 1: editModuleTimetable();
+                case 2: editCourseTimetable();
+                case 3: editStudentTimetable();
+                case 4: editRoomTimetable();
+            }
+            case null, default: displayTimetable(); //implement the other user type inputs
+        }
     }
 
     private void login() {
@@ -59,6 +66,22 @@ class Control {
             data.getModule(
                 view.moduleSelection(
                     data.getAllModuleNames())));
+    }
+
+    public void editModuleTimetable() {
+
+    }
+
+    public void editCourseTimetable() {
+
+    }
+
+    public void editStudentTimetable() {
+
+    }
+
+    public void editRoomTimetable() {
+
     }
 
     void exit() {

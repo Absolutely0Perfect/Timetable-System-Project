@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 import java.util.Collections;
 /**
- * <p>This gathers the nessecary information to create a Modulue it also communicates with the view class </p>
+ * <p>This gathers the necessary information to create a Module, it also communicates with the view class </p>
  */
-class ModuleTimetable {
+public class ModuleTimetable {
     String name;
     ArrayList<TimeSlot> timeSlots;
 

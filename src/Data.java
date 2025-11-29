@@ -29,7 +29,6 @@ class Data {
         this.rooms = new ArrayList<>();
         this.modules = new ArrayList<>();
         this.userData = new File("../Data/users.csv");
-        this.roomData = new File("../Data/rooms.csv");
         this.modulesData = new File("../Data/modules.csv");
         this.roomData = new File("../Data/rooms.csv");
 

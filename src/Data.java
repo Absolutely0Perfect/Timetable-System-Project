@@ -4,6 +4,8 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+
 /**
  * <p> This class reads and stores data from other classes
  * takes the information and gives it to other classes
@@ -23,6 +25,17 @@ class Data {
 
         readUserData();
         readModuleData();
+    }
+
+    public void printModuleName(String moduleName, String moduleDates, Day day, int start, int end, String room, ClassType classType, String lecturer) {
+
+        try (PrintWriter modulenames = new PrintWriter(modulesData)) {
+            modulenames.println();
+            modulenames.close();
+        }
+        catch(FileNotFoundException e){
+            System.out.println("File not found");
+        }
     }
 
     private void readUserData(){

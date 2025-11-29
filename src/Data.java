@@ -31,12 +31,13 @@ class Data {
         this.userData = new File("../Data/users.csv");
         this.roomData = new File("../Data/rooms.csv");
         this.modulesData = new File("../Data/modules.csv");
+        this.roomData = new File("../Data/rooms.csv");
 
         readUserData();
         readRoomData();
         readModuleData();
     }
-
+/*
     public void printModuleName(String moduleName, String moduleDates, Day day, int start, int end, String room, ClassType classType, String lecturer) {
 
         try (PrintWriter modulenames = new PrintWriter(modulesData)) {
@@ -48,6 +49,30 @@ class Data {
         }
     }
 
+
+    public void printUsers(String username, String password UserType userType) {
+
+        try (PrintWriter users = new PrintWriter(userData)) {
+            users.println(User[] users = new User("staff", "1234", 2);
+            users.close();
+        }
+        catch(FileNotFoundException e){
+            System.out.println("File not found");
+        }
+    }
+
+
+    public void printRoomName(String name, RoomType type, int capacity) {
+
+        try (PrintWriter roomnames = new PrintWriter(roomData)) {
+            roomnames.println(Room[] rooms = new Room("CS123", 2, 0);
+            roomnames.close();
+        }
+        catch(FileNotFoundException e){
+            System.out.println("File not found");
+        }
+    }
+*/
     private void readUserData(){
         try (Scanner scanner = new Scanner(userData)){
 

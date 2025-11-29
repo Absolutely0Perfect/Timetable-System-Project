@@ -1,34 +1,42 @@
-import java.util.ArrayList;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
-import java.io.FileNotFoundException;
 /**
  * <p> This class reads and stores data from other classes
  * takes the information and gives it to other classes
  * it also takes the information and creates new informaiton with it </p>
  */
 class Data {
+    private Pattern p;
+    private Matcher match;
+
     private ArrayList<User> users;
+    private ArrayList<ModuleTimetable> rooms;
     private ArrayList<ModuleTimetable> modules;
     private File userData;
+    private File roomData;
     private File modulesData;
 
     public Data(){
+        p = Pattern.compile("[^\\,]+");
+
         this.users = new ArrayList<>();
+        this.rooms = new ArrayList<>();
         this.modules = new ArrayList<>();
         this.userData = new File("../Data/users.csv");
+        this.roomData = new File("../Data/rooms.csv");
         this.modulesData = new File("../Data/modules.csv");
 
         readUserData();
+        readRoomData();
         readModuleData();
     }
 
     private void readUserData(){
         try (Scanner scanner = new Scanner(userData)){
-            Pattern p = Pattern.compile("[^\\,]+");
-            Matcher match;
 
             String curentLine;
             String username;
@@ -54,11 +62,35 @@ class Data {
         }
     }
 
+    private void readRoomData(){
+        try (Scanner scanner = new Scanner(roomData)){
+
+            String curentLine;
+            String roomName;
+            int roomType;
+            int capacity;
+
+            while(scanner.hasNext()){
+                curentLine = scanner.next();
+                match = p.matcher(curentLine);
+
+                match.find();
+                roomName = curentLine.substring(match.start(), match.end());
+                match.find();
+                roomType = Integer.parseInt(curentLine.substring(match.start(), match.end()));
+                match.find();
+                capacity = Integer.parseInt(curentLine.substring(match.start(), match.end()));
+
+                this.rooms.add(new RoomTimetable(roomName, RoomType.toRoomType(roomType), capacity));
+            }
+        }
+        catch(FileNotFoundException e){
+            System.out.println("File not found");
+        }
+    }
+
     private void readModuleData(){
         try (Scanner scanner = new Scanner(modulesData)){
-            IO.println("Found a file!");
-            Pattern p = Pattern.compile("[^\\,]+");
-            Matcher match;
 
             String curentLine;
             String moduleName;
@@ -96,7 +128,7 @@ class Data {
                     IO.println("Added module" + moduleName);
                 }
 
-                addTimeSlot(new TimeSlot(moduleName, moduleDates, Day.toDay(day), start, end, room, ClassType.toClassType(classType), lecturer));
+                addTimeSlot(new TimeSlot(moduleName, moduleDates, Day.toDay(day), start, end, room, ClassType.toClassType(classType), lecturer), modules, rooms);
             }
         }
         catch(FileNotFoundException e){
@@ -122,13 +154,23 @@ class Data {
         return false;
     }
 
-    public void addTimeSlot(TimeSlot timeSlot){
-        for(int i = 0; i < this.modules.size(); i++){
-            if(this.modules.get(i).getName().equals(timeSlot.getModuleName())){
-                this.modules.get(i).add(timeSlot);
+    public void addTimeSlot(TimeSlot timeSlot, ArrayList<ModuleTimetable>... timetables){
+        for(int j = 0; j < timetables.length; j++){
+            for(int i = 0; i < timetables[j].size(); i++){
+                if(timetables[j].get(i) instanceof RoomTimetable){
+                    if(timetables[j].get(i).getName().equals(timeSlot.getRoom())){
+                        timetables[j].get(i).add(timeSlot);
+                    }
+                }
+                else{
+                    if(timetables[j].get(i).getName().equals(timeSlot.getModuleName())){
+                        timetables[j].get(i).add(timeSlot);
+                    }
+                }
             }
         }
     }
+
     public ModuleTimetable getModule(String moduleName){
         for(ModuleTimetable m : this.modules){
             if(m.getName().equals(moduleName)){

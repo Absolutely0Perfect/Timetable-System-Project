@@ -6,7 +6,7 @@ import java.util.ArrayList;
 */
 public class CommandLineInterface extends View {
     private Scanner scanner;
-    public final int width = 25;
+    public final int WIDTH = 25;
 
     CommandLineInterface() {
         scanner = new Scanner(System.in);
@@ -26,7 +26,7 @@ public class CommandLineInterface extends View {
 
     @Override
     public void displayTimetable(ModuleTimetable module) {
-        ArrayList<TimeSlot> slots = module.times;
+        ArrayList<TimeSlot> slots = module.timeSlots;
 
         String[] buffer = {"", "", "", "", ""};
 
@@ -94,7 +94,7 @@ public class CommandLineInterface extends View {
     } // end of display timetable
 
     private void printRowBreak(){
-        for(int i = 1; i <= (width + 1) * 6; i++){
+        for(int i = 1; i <= (WIDTH + 1) * 6; i++){
             IO.print("-");
         }
         IO.println("-");
@@ -102,8 +102,8 @@ public class CommandLineInterface extends View {
 
     private void printEmptyRow(){
         printRowBreak();
-        for(int i = 1; i <= (width + 1) * 6; i++){
-            if(i % (width + 1) == 1){
+        for(int i = 1; i <= (WIDTH + 1) * 6; i++){
+            if(i % (WIDTH + 1) == 1){
                 IO.print("|");
             }
             else{
@@ -123,8 +123,8 @@ public class CommandLineInterface extends View {
 
     private void appendEmptySlotToBuffer(String[] buffer){
         for(int i = 0; i < buffer.length; i++){
-            for(int j = 1; j <= (width + 1); j++){
-                if(j % (width + 1) == 1){
+            for(int j = 1; j <= (WIDTH + 1); j++){
+                if(j % (WIDTH + 1) == 1){
                     buffer[i] += "|";
                 }
                 else{
@@ -146,14 +146,14 @@ public class CommandLineInterface extends View {
 
     private String insertString(String inserted){
         String constructedString = "|";
-        for(int i = 0; i < (width - inserted.length()) / 2; i++){
+        for(int i = 0; i < (WIDTH - inserted.length()) / 2; i++){
             constructedString += " ";
         }
         constructedString += inserted;
-        for(int i = 0; i < (width - inserted.length()) / 2; i++){
+        for(int i = 0; i < (WIDTH - inserted.length()) / 2; i++){
             constructedString += " ";
         }
-        if((width - inserted.length()) % 2 == 1){
+        if((WIDTH - inserted.length()) % 2 == 1){
             constructedString += " ";
         }
         return constructedString;

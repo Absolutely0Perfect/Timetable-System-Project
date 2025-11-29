@@ -162,7 +162,7 @@ class Data {
                 
                 if(!findModule(moduleName)){
                     this.modules.add(new ModuleTimetable(moduleName));
-                    IO.println("Added module" + moduleName);
+                    IO.println("Added module " + moduleName);
                 }
 
                 addTimeSlot(new TimeSlot(moduleName, moduleDates, Day.toDay(day), start, end, room, ClassType.toClassType(classType), lecturer), modules, rooms);
@@ -192,16 +192,15 @@ class Data {
     }
 
     public void addTimeSlot(TimeSlot timeSlot, ArrayList<ModuleTimetable>... timetables){
-        for(int j = 0; j < timetables.length; j++){
-            for(int i = 0; i < timetables[j].size(); i++){
-                if(timetables[j].get(i) instanceof RoomTimetable){
-                    if(timetables[j].get(i).getName().equals(timeSlot.getRoom())){
-                        timetables[j].get(i).add(timeSlot);
+        for (ArrayList<ModuleTimetable> timetable : timetables) {
+            for (ModuleTimetable moduleTimetable : timetable) {
+                if (moduleTimetable instanceof RoomTimetable) {
+                    if (moduleTimetable.getName().equals(timeSlot.getRoom())) {
+                        moduleTimetable.add(timeSlot);
                     }
-                }
-                else{
-                    if(timetables[j].get(i).getName().equals(timeSlot.getModuleName())){
-                        timetables[j].get(i).add(timeSlot);
+                } else {
+                    if (moduleTimetable.getName().equals(timeSlot.getModuleName())) {
+                        moduleTimetable.add(timeSlot);
                     }
                 }
             }

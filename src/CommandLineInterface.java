@@ -1,3 +1,4 @@
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
 /**
@@ -30,7 +31,7 @@ public class CommandLineInterface extends View {
 
         String[] buffer = {"", "", "", "", ""};
 
-        int currentDay = -1; // this is current PRINTING day e. g. the place where we stopped in the row printing
+        int currentDay = -1; // this is current PRINTING day e.g. the place where we stopped in the row printing
         boolean theRowPrinted = false;
         int previousTime = 0;
         int previousDay = 5; // this is the day last processed timeslot was in
@@ -64,7 +65,7 @@ public class CommandLineInterface extends View {
                 theRowPrinted = true;
             }
 
-            for (int j = Math.max(0, currentDay); j < day; j++) {// fills the row with info with empy slots in
+            for (int j = Math.max(0, currentDay); j < day; j++) {// fills the row with info with empty slots in
                 appendEmptySlotToBuffer(buffer);
             }
 
@@ -180,7 +181,107 @@ public class CommandLineInterface extends View {
             default:
                 System.out.println("Invalid input");
         }
-        return scanner.nextInt();
+        int input = scanner.nextInt();
+        scanner.nextLine();
+        return input;
+    }
+
+    @Override
+    public String[] editModuleTimetableLine() {
+        String[] output = new String[8];
+
+        IO.println("Enter module code or type '0' to quit.");
+        output[0] = scanner.nextLine();
+        if (Objects.equals(output[0], "0")) {
+            return output;
+        }
+
+        IO.println("Enter weeks (Start-End).");
+        output[1] = scanner.nextLine();
+
+        IO.println("Enter day (Monday-Sunday).");
+        String day = scanner.nextLine().toLowerCase();
+        switch (day) {
+            case "monday" -> output[2] = "1";
+            case "tuesday" -> output[2] = "2";
+            case "wednesday" -> output[2] = "3";
+            case "thursday" -> output[2] = "4";
+            case "friday" -> output[2] = "5";
+            case "saturday" -> output[2] = "6";
+            case "sunday" -> output[2] = "7";
+        }
+
+        IO.println("Enter start time.");
+        output[3] = scanner.nextLine();
+
+        IO.println("Enter end time.");
+        output[4] = scanner.nextLine();
+
+        IO.println("Enter room code.");
+        output[5] = scanner.nextLine();
+
+        IO.println("Enter class type (LEC, LAB, TUT)");
+        String type = scanner.nextLine().toLowerCase();
+        switch (type) {
+            case "lec" -> output[6] = "0";
+            case "lab" -> output[6] = "1";
+            case "tut" -> output[6] = "2";
+        }
+
+        IO.println("Enter lecturer name.");
+        output[7] = scanner.nextLine();
+
+        return output;
+    }
+
+    @Override
+    public String[] editCourseTimetableLine() {
+        ArrayList<String> output = new ArrayList<>();
+
+        IO.println("Enter course code or type '0' to quit.");
+        output.add(scanner.nextLine());
+        if (Objects.equals(output.getFirst(), "0")) {
+            String[] outputArray = new String[output.size()];
+            outputArray = output.toArray(outputArray);
+            return outputArray;
+        }
+
+        while (true) {
+            IO.println("Enter module code or type '0' to quit.");
+            String module = scanner.nextLine();
+            if (module.equals("0")) {
+                break;
+            }
+
+            output.add(module);
+        }
+
+        String[] outputArray = new String[output.size()];
+        outputArray = output.toArray(outputArray);
+        return outputArray;
+    }
+
+    @Override
+    public String[] editRoomTimetableLine() {
+        String[] output = new String[3];
+
+        IO.println("Enter room code or type '0' to quit.");
+        output[0] = scanner.nextLine();
+        if (output[0].equals("0")) {
+            return output;
+        }
+
+        IO.println("Enter room type (LEC, LAB)");
+        String type = scanner.nextLine().toLowerCase();
+        switch (type) {
+            case "lec" -> output[1] = "0";
+            case "lab" -> output[1] = "1";
+        }
+
+        IO.println("Enter room capacity.");
+        output[2] = scanner.nextLine();
+
+        return output;
     }
 
     @Override

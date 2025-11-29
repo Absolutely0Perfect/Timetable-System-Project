@@ -1,4 +1,8 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.Objects;
+
 /**
  * <p> This class is to manages the flow of information form the other classes
  * It also controls the execution of the programme</p>
@@ -35,12 +39,12 @@ class Control {
 
         switch (currentUser.getUserType()) {
             case ADMIN: switch (userInput) {
-                case 1: editModuleTimetable();
-                case 2: editCourseTimetable();
-                case 3: editStudentTimetable();
-                case 4: editRoomTimetable();
+                case 1 -> editModuleTimetable();
+                case 2 -> editCourseTimetable();
+                case 3 -> editStudentTimetable();
+                case 4 -> editRoomTimetable();
             }
-            case null, default: displayTimetable(); //implement the other user type inputs
+            //implement the other user type inputs
         }
     }
 
@@ -69,19 +73,79 @@ class Control {
     }
 
     public void editModuleTimetable() {
+        String[] output;
+        int i = 1;
 
+        try (FileWriter modules = new FileWriter("../Data/modules.csv")) {
+            while (true) {
+                output = view.editModuleTimetableLine();
+                if (Objects.equals(output[0], "0")) {
+                    break;
+                }
+
+                StringBuilder line = new StringBuilder(output[0]);
+                for (int j=1;j< output.length;j++) {
+                    line.append(",").append(output[j]);
+                }
+                line.append("\n");
+                modules.append(line);
+                i++;
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+        }
     }
 
     public void editCourseTimetable() {
+        String[] output;
+        int i = 1;
 
+        try (FileWriter courses = new FileWriter("../Data/courses.csv")) {
+            while (true) {
+                output = view.editCourseTimetableLine();
+                if (Objects.equals(output[0], "0")) {
+                    break;
+                }
+
+                StringBuilder line = new StringBuilder(output[0]);
+                for (int j=1;j< output.length;j++) {
+                    line.append(",").append(output[j]);
+                }
+                line.append("\n");
+                courses.append(line);
+                i++;
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+        }
     }
 
     public void editStudentTimetable() {
-
+        //to be implemented
     }
 
     public void editRoomTimetable() {
+        String[] output;
+        int i = 1;
 
+        try (FileWriter rooms = new FileWriter("../Data/rooms.csv")) {
+            while (true) {
+                output = view.editRoomTimetableLine();
+                if (Objects.equals(output[0], "0")) {
+                    break;
+                }
+
+                StringBuilder line = new StringBuilder(output[0]);
+                for (int j=1;j< output.length;j++) {
+                    line.append(",").append(output[j]);
+                }
+                line.append("\n");
+                rooms.append(line);
+                i++;
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+        }
     }
 
     void exit() {

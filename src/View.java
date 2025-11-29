@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 /**
- * <p>Displays infomration to user based on inputs folowing Usertype </p>
+ * <p>Displays information to user based on inputs following Usertype</p>
  */
 abstract class View {
     abstract public void exit();
@@ -8,4 +8,7 @@ abstract class View {
     abstract public void displayTimetable(ModuleTimetable module);
     abstract public int displayInterface(UserType userType);
     abstract public String[] displayLogin();
+    abstract public String[] editModuleTimetableLine();
+    abstract public String[] editCourseTimetableLine();
+    abstract public String[] editRoomTimetableLine();
 }

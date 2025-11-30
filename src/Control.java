@@ -45,7 +45,10 @@ class Control {
                 case 4 -> editRoomTimetable();
             }
             case STUDENT: switch (userInput) {
-                case 1 -> displayTimetable();
+                case 1 -> displayModuleTimetable();
+                case 2 -> displayCourseTimetable();
+                case 3 -> displayPersonalTimetable();
+                case 4 -> displayRoomTimetable();
             }
             //implement the other user type inputs
         }
@@ -68,11 +71,29 @@ class Control {
         }
     }
 
-    public void displayTimetable() { //subject to change
+    public void displayModuleTimetable() {
         view.displayTimetable(
             dataReader.getModule(
-                view.moduleSelection(
+                view.selection(
                     dataReader.getAllModuleNames())));
+    }
+
+    public void displayCourseTimetable() {
+        view.displayTimetable(
+            dataReader.getCourse(
+                view.selection(
+                    dataReader.getAllCourseNames())));
+    }
+
+    public void displayPersonalTimetable() {
+        //temp
+    }
+
+    public void displayRoomTimetable() {
+        view.displayTimetable(
+            dataReader.getRoom(
+                view.selection(
+                    dataReader.getAllRoomNames())));
     }
 
     public void editModuleTimetable() {

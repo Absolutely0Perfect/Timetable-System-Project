@@ -258,18 +258,42 @@ class DataReader extends Data{
         return null;
     }
 
-    public List<String> getAllModuleNames(){
-        List<String> constructed = new ArrayList<>();
+    public ModuleTimetable getCourse(String courseName){
+        for(ModuleTimetable m : this.courses){
+            if(m.getName().equals(courseName)){
+                return m;
+            }
+        }
+        return null;
+    }
+
+    public ModuleTimetable getRoom(String roomName){
+        for(ModuleTimetable m : this.rooms){
+            if(m.getName().equals(roomName)){
+                return m;
+            }
+        }
+        return null;
+    }
+
+    public List<String[]> getAllModuleNames(){
+        List<String[]> constructed = new ArrayList<>();
         for(ModuleTimetable m : this.modules){
-            constructed.add(m.getName() + ":" + names.get(m.getName()));
+            String[] codeName = new String[2];
+            codeName[0] = m.getName();
+            codeName[1] = names.get(m.getName());
+            constructed.add(codeName);
         }
         return constructed;
     }
 
-    public List<String> getAllCourseNames(){
-        List<String> constructed = new ArrayList<>();
+    public List<String[]> getAllCourseNames(){
+        List<String[]> constructed = new ArrayList<>();
         for(ModuleTimetable m : this.courses){
-            constructed.add(m.getName() + ":" + names.get(m.getName()));
+            String[] codeName = new String[2];
+            codeName[0] = m.getName();
+            codeName[1] = names.get(m.getName());
+            constructed.add(codeName);
         }
         return constructed;
     }
@@ -277,7 +301,10 @@ class DataReader extends Data{
     public List<String[]> getAllRoomNames(){
         List<String[]> constructed = new ArrayList<>();
         for(ModuleTimetable m : this.rooms){
-            constructed.add(m.getName() + ":" + names.get(m.getName()));
+            String[] codeName = new String[2];
+            codeName[0] = m.getName();
+            codeName[1] = names.get(m.getName());
+            constructed.add(codeName);
         }
         return constructed;
     }

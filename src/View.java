@@ -5,9 +5,9 @@ import java.util.List;
 abstract class View {
     abstract public void exit();
 
+    abstract public String selection(List<String[]> names);
     abstract public String[] displayLogin();
     abstract public int displayInterface(UserType userType);
-    abstract public String moduleSelection(List<String> names);
     abstract public void displayTimetable(ModuleTimetable module);
 
     abstract public String[] editModuleTimetableLine();

@@ -15,15 +15,15 @@ public class CommandLineInterface extends View {
     }
 
     @Override
-    public String moduleSelection(List<String> names){
+    public String selection(List<String[]> names){
         IO.println("Select a Module to display");
 
         for(int i = 0; i < names.size(); i++){
-            IO.println(i + ":" + names.get(i));
+            IO.println(i + ":" + names.get(i)[0] + "-" + names.get(i)[1]);
         }
         int userChoice = scanner.nextInt();
 
-        return names.get(userChoice);
+        return names.get(userChoice)[0];
     }
 
     @Override

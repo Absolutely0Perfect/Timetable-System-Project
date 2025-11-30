@@ -4,9 +4,9 @@
  */
 
 class User {
-    private String username;
-    private String password;
-    UserType userType;
+    protected String username;
+    protected String password;
+    protected UserType userType;
 
     User(String username, String password, UserType userType) {
         this.username = username;

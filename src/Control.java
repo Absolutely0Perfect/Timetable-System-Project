@@ -10,7 +10,7 @@ import java.util.Objects;
 class Control {
     private boolean running = false;
     private boolean userLogged = false;
-    private Data data;
+    private DataReader dataReader;
     private View view;
     private User currentUser = null;
 
@@ -20,7 +20,7 @@ class Control {
 
     public Control() {
         //to be implemented
-        data = new Data();
+        dataReader = new DataReader();
         view = new CommandLineInterface(); // should be a drop in replacement for gui class if we need to make one
         running = true;
     }
@@ -44,6 +44,9 @@ class Control {
                 case 3 -> editStudentTimetable();
                 case 4 -> editRoomTimetable();
             }
+            case STUDENT: switch (userInput) {
+                case 1 -> displayTimetable();
+            }
             //implement the other user type inputs
         }
     }
@@ -52,8 +55,8 @@ class Control {
         // quoter for user what user wants to do
         while (true) {
             String[] loginDetails = view.displayLogin();
-            System.out.println(Arrays.toString(loginDetails));
-            currentUser = data.findUser(loginDetails[0], loginDetails[1]);
+            IO.println(Arrays.toString(loginDetails));
+            currentUser = dataReader.findUser(loginDetails[0], loginDetails[1]);
             if(currentUser == null){
                 IO.println("Invalid username or password. \nTry again");
             }
@@ -67,16 +70,16 @@ class Control {
 
     public void displayTimetable() { //subject to change
         view.displayTimetable(
-            data.getModule(
+            dataReader.getModule(
                 view.moduleSelection(
-                    data.getAllModuleNames())));
+                    dataReader.getAllModuleNames())));
     }
 
     public void editModuleTimetable() {
         String[] output;
         int i = 1;
 
-        try (FileWriter modules = new FileWriter("../Data/modules.csv")) {
+        try (FileWriter modules = new FileWriter("../DataReader/modules.csv")) {
             while (true) {
                 output = view.editModuleTimetableLine();
                 if (Objects.equals(output[0], "0")) {
@@ -92,7 +95,7 @@ class Control {
                 i++;
             }
         } catch (IOException e) {
-            System.out.println("An error occurred.");
+            IO.println("An error occurred.");
         }
     }
 
@@ -100,7 +103,7 @@ class Control {
         String[] output;
         int i = 1;
 
-        try (FileWriter courses = new FileWriter("../Data/courses.csv")) {
+        try (FileWriter courses = new FileWriter("../DataReader/courses.csv")) {
             while (true) {
                 output = view.editCourseTimetableLine();
                 if (Objects.equals(output[0], "0")) {
@@ -116,7 +119,7 @@ class Control {
                 i++;
             }
         } catch (IOException e) {
-            System.out.println("An error occurred.");
+            IO.println("An error occurred.");
         }
     }
 
@@ -128,7 +131,7 @@ class Control {
         String[] output;
         int i = 1;
 
-        try (FileWriter rooms = new FileWriter("../Data/rooms.csv")) {
+        try (FileWriter rooms = new FileWriter("../DataReader/rooms.csv")) {
             while (true) {
                 output = view.editRoomTimetableLine();
                 if (Objects.equals(output[0], "0")) {
@@ -136,15 +139,16 @@ class Control {
                 }
 
                 StringBuilder line = new StringBuilder(output[0]);
-                for (int j=1;j< output.length;j++) {
+                for (int j = 1; j < output.length; j++) {
                     line.append(",").append(output[j]);
                 }
+
                 line.append("\n");
                 rooms.append(line);
                 i++;
             }
         } catch (IOException e) {
-            System.out.println("An error occurred.");
+            IO.println("An error occurred.");
         }
     }
 

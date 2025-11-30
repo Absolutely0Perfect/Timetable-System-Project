@@ -1,5 +1,6 @@
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.List;
 import java.util.ArrayList;
 /**
 *  <p>This class is the CLI used to display any inputs the user needs to input.
@@ -14,7 +15,7 @@ public class CommandLineInterface extends View {
     }
 
     @Override
-    public String moduleSelection(ArrayList<String> names){
+    public String moduleSelection(List<String> names){
         IO.println("Select a Module to display");
 
         for(int i = 0; i < names.size(); i++){
@@ -27,8 +28,7 @@ public class CommandLineInterface extends View {
 
     @Override
     public void displayTimetable(ModuleTimetable module) {
-        ArrayList<TimeSlot> slots = module.timeSlots;
-
+        List<TimeSlot> slots = module.getTimeSlots();
         String[] buffer = {"", "", "", "", ""};
 
         int currentDay = -1; // this is current PRINTING day e.g. the place where we stopped in the row printing
@@ -169,10 +169,6 @@ public class CommandLineInterface extends View {
             case LECTURER:
             System.out.println("1. Display Module Timetable, 2. Display Course Timetable, 3. Display Lecturer Timetable, 4. Display Room Timetable, 0. Exit");
             // For Lecturer
-                break;
-            case STAFF:
-            System.out.println("1. Display Module Timetable, 2. Display Course Timetable, 3. Display Room Timetable, 0. Exit");
-            // For Staff
                 break;
             case ADMIN:
             System.out.println("1. Edit Module Timetable, 2. Edit Course Timetable, 3. Edit Student Timetable, 4. Edit Room Timetable, 0. Exit");

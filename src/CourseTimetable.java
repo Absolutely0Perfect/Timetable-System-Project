@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 /**
  * <p>This class is to control any amount of timetables for certain Module timetables.
  * This also communicates with the view class to create a Course timetable</p>

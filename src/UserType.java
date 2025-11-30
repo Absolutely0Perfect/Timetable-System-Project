@@ -3,14 +3,13 @@
  */
 
 public enum UserType {
-    STUDENT, LECTURER, STAFF, ADMIN;
+    STUDENT, LECTURER, ADMIN;
 
     public static  UserType toUserType(int i) {
         return switch (i) {
             case 0 -> STUDENT;
             case 1 -> LECTURER;
-            case 2 -> STAFF;
-            case 3 -> ADMIN;
+            case 2 -> ADMIN;
             default -> null;
         };
     }
@@ -19,8 +18,7 @@ public enum UserType {
         return switch (this) {
             case STUDENT -> 0;
             case LECTURER -> 1;
-            case STAFF -> 2;
-            case ADMIN -> 3;
+            case ADMIN -> 2;
         };
     }
 }

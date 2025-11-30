@@ -19,7 +19,6 @@ class Control {
     }
 
     public Control() {
-        //to be implemented
         dataReader = new DataReader();
         view = new CommandLineInterface(); // should be a drop in replacement for gui class if we need to make one
         running = true;
@@ -37,25 +36,24 @@ class Control {
             return;
         }
 
-        switch (currentUser.getUserType()) {
-            case ADMIN: switch (userInput) {
-                case 1 -> editModuleTimetable();
-                case 2 -> editCourseTimetable();
-                case 3 -> editStudentTimetable();
-                case 4 -> editRoomTimetable();
+        if(currentUser.getUserType() == UserType.ADMIN){
+            switch(userInput){
+            case 1 -> editModuleTimetable();
+            case 2 -> editCourseTimetable();
+            case 3 -> editStudentTimetable();
+            case 4 -> editRoomTimetable();
             }
-            case STUDENT: switch (userInput) {
-                case 1 -> displayModuleTimetable();
-                case 2 -> displayCourseTimetable();
-                case 3 -> displayPersonalTimetable();
-                case 4 -> displayRoomTimetable();
+        }
+        else {switch (userInput) {
+            case 1 -> displayModuleTimetable();
+            case 2 -> displayCourseTimetable();
+            case 3 -> displayPersonalTimetable();
+            case 4 -> displayRoomTimetable();
             }
-            //implement the other user type inputs
         }
     }
 
     private void login() {
-        // quoter for user what user wants to do
         while (true) {
             String[] loginDetails = view.displayLogin();
             IO.println(Arrays.toString(loginDetails));
@@ -86,7 +84,9 @@ class Control {
     }
 
     public void displayPersonalTimetable() {
-        //temp
+        Student castedUser = (Student) currentUser;
+        view.displayTimetable(
+            castedUser.getPersonalTimetable());
     }
 
     public void displayRoomTimetable() {

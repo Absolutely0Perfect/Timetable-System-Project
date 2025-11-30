@@ -26,7 +26,7 @@ class User {
         return this.userType;
     }
 
-    public boolean compare(String username, String password){
+    public boolean equals(String username, String password){
         return (this.username.equals(username)) && (this.password.equals(password));
     }
 }

@@ -1,5 +1,5 @@
 class Lecturer extends Student{
-    protected name;
+    protected String name;
 
     public Lecturer(String username, String password, UserType userType, String name){
         super(username, password, userType);

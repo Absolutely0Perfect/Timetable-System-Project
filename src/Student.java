@@ -12,10 +12,10 @@ class Student extends User{
     }
 
     public void addTimeSlot(TimeSlot timeSlot){
-        this.studentTimetable.add(timeSlot);
+        this.personalTimetable.add(timeSlot);
     }
 
     public void addModule(ModuleTimetable module){
-        this.studentTimetable.addModule(module);
+        this.personalTimetable.addModule(module);
     }
 }

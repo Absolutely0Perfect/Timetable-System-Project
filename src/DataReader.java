@@ -60,7 +60,9 @@ class DataReader extends Data{
             String curentLine;
             String username;
             String password;
-            int userType;
+            String module;
+            String name;
+            UserType userType;
 
             while(scanner.hasNext()){
                 curentLine = scanner.next();
@@ -71,9 +73,29 @@ class DataReader extends Data{
                 match.find();
                 password = curentLine.substring(match.start(), match.end());
                 match.find();
-                userType = Integer.parseInt(curentLine.substring(match.start(), match.end()));
+                userType = UserType.toUserType(Integer.parseInt(curentLine.substring(match.start(), match.end())));
 
-                this.users.add(new User(username, password, UserType.toUserType(userType)));
+                switch (userType){
+                case STUDENT:
+                    this.users.add(new Student(username, password, userType));
+                    while(match.find()){
+                        module = curentLine.substring(match.start(), match.end());
+                        addModuleToPerson(username, module);
+                    }
+                    break;
+                case LECTURER:
+                    match.find();
+                    name = curentLine.substring(match.start(), match.end());
+                    this.users.add(new Lecturer(username, password, userType, name));
+                    while(match.find()){
+                        module = curentLine.substring(match.start(), match.end());
+                        addModuleToPerson(username, module);
+                    }
+                    break;
+                case ADMIN:
+                    this.users.add(new Student(username, password, userType));
+                    break;
+                }
             }
         }
         catch(FileNotFoundException e){
@@ -172,7 +194,7 @@ class DataReader extends Data{
                 if(!findModule(moduleName)){
                     this.modules.add(new ModuleTimetable(moduleName));
                 }
-
+                
                 addTimeSlot(new TimeSlot(moduleName, moduleDates, Day.toDay(day), start, end, room, ClassType.toClassType(classType), lecturer), modules, rooms);
             }
         }
@@ -207,7 +229,7 @@ class DataReader extends Data{
 
     public User findUser(String username, String password){
         for(User u : this.users){
-            if (u.compare(username, password)){
+            if (u.equals(username, password)){
                 return u;
             }
         }
@@ -244,6 +266,16 @@ class DataReader extends Data{
             if(course.getName().equals(courseName)){
                 CourseTimetable castedCourse = (CourseTimetable) course;
                 castedCourse.addModule(getModule(moduleName));
+                return;
+            }
+        }
+    }
+
+    public void addModuleToPerson(String name, String moduleName){
+        for(User u : this.users){
+            if(u.getUsername().equals(name)){
+                Student castedUser = (Student) u;
+                castedUser.addModule(getModule(moduleName));
                 return;
             }
         }
@@ -303,7 +335,7 @@ class DataReader extends Data{
         for(ModuleTimetable m : this.rooms){
             String[] codeName = new String[2];
             codeName[0] = m.getName();
-            codeName[1] = names.get(m.getName());
+            codeName[1] = " ";
             constructed.add(codeName);
         }
         return constructed;

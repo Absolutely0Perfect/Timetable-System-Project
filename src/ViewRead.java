@@ -1,17 +1,12 @@
 import java.util.List;
-/**
- * <p>Displays information to user based on inputs following Usertype</p>
- */
-abstract class View {
-    abstract public void exit();
 
+abstract class ViewRead{
     abstract public String selection(List<String[]> names);
     abstract public String[] displayLogin();
     abstract public int displayInterface(UserType userType);
-    abstract public void displayTimetable(ModuleTimetable module);
-
+    
     abstract public int editModuleTimetables();
-    abstract public String[] editModuleTimeSlot(ModuleTimetable timetable, DataParser dataParser);
+    abstract public String[] editModuleTimeSlot(ViewRender viewRender, ModuleTimetable timetable, DataParser dataParser);
     abstract public String[] addModuleTimeSlot();
 
     abstract public int editCourseTimetables();
@@ -21,4 +16,6 @@ abstract class View {
     abstract public int editRooms();
     abstract public String[] editRoom();
     abstract public String[] addRoom();
+
+    abstract public void exit();
 }

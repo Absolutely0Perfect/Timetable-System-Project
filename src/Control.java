@@ -2,16 +2,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Objects;
-
 /**
  * <p> This class is to manages the flow of information form the other classes
  * It also controls the execution of the programme</p>
  */
 class Control {
     private boolean running = false;
-    private boolean userLogged = false;
+    private boolean userLogged = false; //?
     private DataParser dataParser;
-    private View view;
+    private ViewRead viewRead;
+    private ViewRender viewRender;
     private User currentUser = null;
 
     public boolean isRunning(){
@@ -20,7 +20,8 @@ class Control {
 
     public Control() {
         dataParser = new DataParser();
-        view = new CommandLineInterface(); // should be a drop in replacement for gui class if we need to make one
+        viewRead = new CLIRead();
+        viewRender = new CLIRender();
         running = true;
     }
 
@@ -30,7 +31,7 @@ class Control {
         }
 
         int userInput;
-        userInput = view.displayInterface(currentUser.getUserType());
+        userInput = viewRead.displayInterface(currentUser.getUserType());
         if (userInput == 0) {
             exit();
             return;
@@ -56,7 +57,7 @@ class Control {
 
     private void login() {
         while (true) {
-            String[] loginDetails = view.displayLogin();
+            String[] loginDetails = viewRead.displayLogin();
             IO.println(Arrays.toString(loginDetails));
             currentUser = dataParser.findUser(loginDetails[0], loginDetails[1]);
             if(currentUser == null){
@@ -71,29 +72,29 @@ class Control {
     }
 
     public void displayModuleTimetable() {
-        view.displayTimetable(
+        viewRender.displayTimetable(
             dataParser.getModule(
-                view.selection(
+                viewRead.selection(
                     dataParser.getAllModuleNames())));
     }
 
     public void displayCourseTimetable() {
-        view.displayTimetable(
+        viewRender.displayTimetable(
             dataParser.getCourse(
-                view.selection(
+                viewRead.selection(
                     dataParser.getAllCourseNames())));
     }
 
     public void displayPersonalTimetable() {
         Student castedUser = (Student) currentUser;
-        view.displayTimetable(
+        viewRender.displayTimetable(
             castedUser.getPersonalTimetable());
     }
 
     public void displayRoomTimetable() {
-        view.displayTimetable(
+        viewRender.displayTimetable(
             dataParser.getRoom(
-                view.selection(
+                viewRead.selection(
                     dataParser.getAllRoomNames())));
     }
 
@@ -114,7 +115,7 @@ class Control {
     }
 
     void exit() {
-        view.exit();
+        viewRead.exit();
         running = false;
     }
 }

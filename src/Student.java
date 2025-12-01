@@ -18,4 +18,13 @@ class Student extends User{
     public void addModule(ModuleTimetable module){
         this.personalTimetable.addModule(module);
     }
+
+    @Override
+    public String toString(){
+        String lineForm = this.username + "," + this.password + "," + this.userType.toInt;
+        for(TimeSlot t: this.personalTimetable.getTimeSlots()){
+            lineForm += "," + t.getModuleName();
+        }
+        return lineForm;
+    }
 }

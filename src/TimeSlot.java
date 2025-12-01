@@ -75,4 +75,9 @@ class TimeSlot implements Comparable<TimeSlot>{
             return 1;
         }
     }
+
+    @Override
+    public String toString(){
+        return moduleName + "," + moduleDates + "," + day.toInt() + "," + start "," + end + "," + room + "," + classType.toInt() + "," + lecturer;
+    }
 }

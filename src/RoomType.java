@@ -11,4 +11,13 @@ public enum RoomType{
             return null;
         }
     }
+
+    public int toInt(){
+        switch(this){
+        case LEC:
+            return 0;
+        case LAB:
+            return 1;
+        }
+    }
 }

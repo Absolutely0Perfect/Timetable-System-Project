@@ -18,4 +18,13 @@ class  CourseTimetable extends ModuleTimetable{
         this.timeSlots.addAll(module.getTimeSlots());
         Collections.sort(this.timeSlots);
     }
+
+    @Override
+    public String toString(){
+        String lineForm = this.name;
+        for(TimeSlot t: this.personalTimetable.getTimeSlots()){
+            lineForm += "," + t.getModuleName();
+        }
+        return lineForm;
+    }
 }

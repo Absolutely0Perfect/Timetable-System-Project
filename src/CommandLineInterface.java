@@ -183,7 +183,7 @@ public class CommandLineInterface extends View {
     }
 
     @Override
-    public String[] editModuleTimetableLine() {
+    public String[] addModuleTimeSlot() {
         String[] output = new String[8];
 
         IO.println("Enter module code or type '0' to quit.");
@@ -231,7 +231,7 @@ public class CommandLineInterface extends View {
     }
 
     @Override
-    public String[] editCourseTimetableLine() {
+    public String[] addCourse() {
         ArrayList<String> output = new ArrayList<>();
 
         IO.println("Enter course code or type '0' to quit.");
@@ -258,7 +258,7 @@ public class CommandLineInterface extends View {
     }
 
     @Override
-    public String[] editRoomTimetableLine() {
+    public String[] addRoom() {
         String[] output = new String[3];
 
         IO.println("Enter room code or type '0' to quit.");

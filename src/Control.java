@@ -43,6 +43,7 @@ class Control {
             case 3 -> editStudentTimetable();
             case 4 -> editRoomTimetable();
             }
+            dataReader.reload();
         }
         else {switch (userInput) {
             case 1 -> displayModuleTimetable();
@@ -97,80 +98,19 @@ class Control {
     }
 
     public void editModuleTimetable() {
-        String[] output;
-        int i = 1;
-
-        try (FileWriter modules = new FileWriter("../DataReader/modules.csv")) {
-            while (true) {
-                output = view.editModuleTimetableLine();
-                if (Objects.equals(output[0], "0")) {
-                    break;
-                }
-
-                StringBuilder line = new StringBuilder(output[0]);
-                for (int j=1;j< output.length;j++) {
-                    line.append(",").append(output[j]);
-                }
-                line.append("\n");
-                modules.append(line);
-                i++;
-            }
-        } catch (IOException e) {
-            IO.println("An error occurred.");
-        }
+        //under construction
     }
 
     public void editCourseTimetable() {
-        String[] output;
-        int i = 1;
-
-        try (FileWriter courses = new FileWriter("../DataReader/courses.csv")) {
-            while (true) {
-                output = view.editCourseTimetableLine();
-                if (Objects.equals(output[0], "0")) {
-                    break;
-                }
-
-                StringBuilder line = new StringBuilder(output[0]);
-                for (int j=1;j< output.length;j++) {
-                    line.append(",").append(output[j]);
-                }
-                line.append("\n");
-                courses.append(line);
-                i++;
-            }
-        } catch (IOException e) {
-            IO.println("An error occurred.");
-        }
+        //under construction
     }
 
     public void editStudentTimetable() {
-        //to be implemented
+        //under construction
     }
 
     public void editRoomTimetable() {
-        String[] output;
-        int i = 1;
-
-        try (FileWriter rooms = new FileWriter("../DataReader/rooms.csv")) {
-            while (true) {
-                output = view.editRoomTimetableLine();
-                if (Objects.equals(output[0], "0")) {
-                    break;
-                }
-
-                StringBuilder line = new StringBuilder(output[0]);
-                for (int j = 1; j < output.length; j++) {
-                    line.append(",").append(output[j]);
-                }
-
-                line.append("\n");
-                rooms.append(line);
-                i++;
-            }
-        } catch (IOException e) {
-            IO.println("An error occurred.");
-        }
+        //under construction
     }
 
     void exit() {

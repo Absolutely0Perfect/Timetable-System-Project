@@ -10,7 +10,7 @@ abstract class View {
     abstract public int displayInterface(UserType userType);
     abstract public void displayTimetable(ModuleTimetable module);
 
-    abstract public String[] editModuleTimetableLine();
-    abstract public String[] editCourseTimetableLine();
-    abstract public String[] editRoomTimetableLine();
+    abstract public String[] addModuleTimeSlot();
+    abstract public String[] addCourse();
+    abstract public String[] addRoom();
 }

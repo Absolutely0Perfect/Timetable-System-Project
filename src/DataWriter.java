@@ -1,10 +1,11 @@
 import java.io.FileWriter;
+import java.io.File;
+import java.io.Files;
 /**
  * <p>This class gathers data and add its to each seaprate Timeslot type <p>
  */
+
 class DataWriter extends Data{
-
-
     public DataWriter(){
         super();
     }
@@ -84,5 +85,11 @@ class DataWriter extends Data{
         } catch (IOException e) {
             IO.println("An error occurred.");
         }
+    }
+
+    private List<String> readAllLines(File file){
+        List<String> allLines = new ArrayList<>();
+        lines.addAll(Files.readAllLines(file));
+
     }
 }

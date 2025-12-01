@@ -2,14 +2,13 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
-<<<<<<< Updated upstream
 import java.util.Set;
 import java.util.HashSet;
-=======
+
+
 /**
  * <p>This class provides the means the access all the data <p>
  */
->>>>>>> Stashed changes
 
 class DataParser{
     private DataReader dataReader;

@@ -184,7 +184,6 @@ class CLIRead extends ViewRead{
             IO.println("Unknown lecturer");
             return null;
         }
-<<<<<<< Updated upstream
 
         String[] output = new String[3];
         output[0] = timetable.getName();
@@ -193,9 +192,6 @@ class CLIRead extends ViewRead{
 
         return output;
     }
-=======
->>>>>>> Stashed changes
-
         String[] output = new String[3];
         output[0] = timetable.getName();
         output[1] = timetable.getTimeSlots().get(0).getLecturer();
@@ -203,6 +199,7 @@ class CLIRead extends ViewRead{
 
         return output;
     }
+
     /**
      * <p> This method walks the user through the process of add a module to a timeslot <p>
      */

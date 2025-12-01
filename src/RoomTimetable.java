@@ -5,7 +5,9 @@ import java.util.ArrayList;
 class RoomTimetable extends ModuleTimetable{
     RoomType type;
     int capacity;
-
+    /**
+     * <p> This is a constructor for RoomTimetable </p>
+     */
     public RoomTimetable(String name, RoomType type, int capacity){
         super(name);
         this.type = type;

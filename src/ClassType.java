@@ -1,3 +1,6 @@
+/**
+ * <p>This class is an enumerator for each Type of class </p>
+ */
 public enum ClassType {
     LEC, LAB, TUT;
     public static  ClassType toClassType(int i) {

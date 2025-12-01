@@ -1,5 +1,5 @@
 /**
- * <p> enumerator of class User </p>
+ * <p> This is a class for an enumerator that gives us a type of type User</p>
  */
 
 public enum UserType {

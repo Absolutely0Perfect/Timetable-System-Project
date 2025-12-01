@@ -1,6 +1,12 @@
 mc0001,2-12,1,11,13,CSG01,0,Ivan-Ivanovych
-mc0001,2-12,1,14,15,CS101,1,Ivan-Ivanovych
+mc0001,2-12,4,14,15,CS101,1,Ivan-Ivanovych
+mc0001,2-12,1,17,18,CS101,1,Ivan-Ivanovych
 mc0002,2-12,2,11,13,CSG01,0,Ivan-Ivanovych
-mc0002,2-12,2,14,15,CS101,1,Ivan-Ivanovych
+mc0002,2-12,1,14,15,CS101,1,Ivan-Ivanovych
+mc0002,2-12,5,17,18,CS101,1,Ivan-Ivanovych
 mc0003,2-12,3,11,13,CSG01,0,Ivan-Ivanovych
-mc0003,2-12,3,14,15,CS101,1,Ivan-Ivanovych
+mc0003,2-12,5,14,15,CS101,1,Ivan-Ivanovych
+mc0003,2-12,4,9,11,CS101,1,Ivan-Ivanovych
+eq0003,2-12,1,11,13,CSG01,0,Dany-Miller
+eq0003,2-12,4,15,16,CS101,1,Dany-Miller
+eq0003,2-12,3,9,11,CS101,1,Dany-Miller

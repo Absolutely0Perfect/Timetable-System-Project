@@ -1,7 +1,4 @@
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Arrays;
-import java.util.Objects;
 /**
  * <p> This class is to manages the flow of information form the other classes
  * It also controls the execution of the programme</p>
@@ -10,6 +7,7 @@ class Control {
     private boolean running = false;
     private boolean userLogged = false; //?
     private DataParser dataParser;
+    private DataWriter dataWriter;
     private ViewRead viewRead;
     private ViewRender viewRender;
     private User currentUser = null;
@@ -22,6 +20,7 @@ class Control {
      */
     public Control() {
         dataParser = new DataParser();
+        dataWriter = new DataWriter();
         viewRead = new CLIRead();
         viewRender = new CLIRender();
         running = true;
@@ -114,7 +113,24 @@ class Control {
      * <p>method to edit module timetable <p>
      */
     public void editModuleTimetable() {
-        //under construction
+        ModuleTimetable timetable = dataParser.getModule(viewRead.selection(dataParser.getAllModuleNames()));
+        int userInput = viewRead.editModuleTimetables();
+
+        switch(userInput){
+        case 1:
+            TimeSlotDTO[] timeSlotDTO = viewRead.editModuleTimeSlot(viewRender, timetable, dataParser);
+            if(timeSlotDTO == null){
+                return;
+            }
+            dataWriter.editTimeSlot(timeSlotDTO);
+            break;
+        case 2:
+            
+            break;
+        case 3:
+            dataWriter.addModuleTimeSlot(viewRead.addModuleTimeSlot());
+            break;
+        }
     }
     /**
      * <p>method to edit course timetable <p>

@@ -8,9 +8,7 @@ class CLIRender extends ViewRender {
     public final int WIDTH = 25;
 
     public CLIRender() {}
-    /**
-     * <p>This method outputs a blank Timeslot and then inserts the nessescary data <p>
-     */
+
     @Override
     public void displayTimetable(ModuleTimetable module) {
         List<TimeSlot> slots = module.getTimeSlots();
@@ -131,13 +129,10 @@ class CLIRender extends ViewRender {
 
     private String insertString(String inserted){
         StringBuilder constructedString = new StringBuilder("|");
-        for(int i = 0; i < (WIDTH - inserted.length()) / 2; i++){
-            constructedString.append(" ");
-        }
+        final var s = " ".repeat(Math.max(0, (WIDTH - inserted.length()) / 2));
+        constructedString.append(s);
         constructedString.append(inserted);
-        for(int i = 0; i < (WIDTH - inserted.length()) / 2; i++){
-            constructedString.append(" ");
-        }
+        constructedString.append(s);
         if((WIDTH - inserted.length()) % 2 == 1){
             constructedString.append(" ");
         }

@@ -1,10 +1,15 @@
 import java.io.FileWriter;
 import java.io.File;
-import java.io.Files;
+import java.nio.file.Files;
+import java.io.FileNotFoundException;
+import java.nio.file.Path;
+import java.io.IOException;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Objects;
 /**
  * <p>This class gathers data and add its to each seaprate Timeslot type <p>
  */
-
 class DataWriter extends Data{
     public DataWriter(){
         super();
@@ -12,6 +17,23 @@ class DataWriter extends Data{
     /**
      * <p>This method gahters data from module and prints it to timeslot  <p>
      */
+    public void editTimeSlot(TimeSlotDTO[] changing) {
+        try {
+            List<String> modules = readAllLines(this.modulesPath);
+
+            for (int i = 0; i < modules.size(); i++) {
+                if (modules.get(i).equals(changing[0].toString())) {
+                    modules.set(i, changing[1].toString());
+                }
+            }
+
+            Files.write(this.modulesPath, modules);
+        } catch (IOException e) {
+            IO.println("An error has occurred: " + e.getMessage());
+            e.printStackTrace(); // Add stack trace for debugging
+        }
+    }
+
     public void addModuleTimeSlot(String[] output) {
         int i = 1;
 
@@ -87,9 +109,10 @@ class DataWriter extends Data{
         }
     }
 
-    private List<String> readAllLines(File file){
-        List<String> allLines = new ArrayList<>();
-        lines.addAll(Files.readAllLines(file));
-
+    private List<String> readAllLines(Path filePath) throws IOException {
+        if (!Files.exists(filePath)) {
+            throw new IOException("File does not exist: " + filePath);
+        }
+        return Files.readAllLines(filePath);
     }
 }

@@ -192,13 +192,6 @@ class CLIRead extends ViewRead{
 
         return output;
     }
-        String[] output = new String[3];
-        output[0] = timetable.getName();
-        output[1] = timetable.getTimeSlots().get(0).getLecturer();
-        output[2] = newLecturer;
-
-        return output;
-    }
 
     /**
      * <p> This method walks the user through the process of add a module to a timeslot <p>

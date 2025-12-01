@@ -11,7 +11,7 @@ abstract class View {
     abstract public void displayTimetable(ModuleTimetable module);
 
     abstract public int editModuleTimetables();
-    abstract public String[] edditModuleTimeSlot(ModuleTimetable timetable);
+    abstract public String[] editModuleTimeSlot(ModuleTimetable timetable, DataParser dataParser);
     abstract public String[] addModuleTimeSlot();
 
     abstract public int editCourseTimetables();

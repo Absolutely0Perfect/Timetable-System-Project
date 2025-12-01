@@ -13,15 +13,15 @@ class TimeSlot implements Comparable<TimeSlot>, Cloneable{
     ClassType classType;
     String lecturer;
 
-    public TimeSlot(String moduleName, String moduleDates, Day day, int start, int end, String room, ClassType classType, String lecturer) {
-        this.moduleName = moduleName;
-        this.moduleDates = moduleDates;
-        this.day = day;
-        this.start = start;
-        this.end = end;
-        this.room = room;
-        this.classType = classType;
-        this.lecturer = lecturer;
+    public TimeSlot(TimeSlotDTO timeSlotDTO) {
+        this.moduleName = timeSlotDTO.moduleName;
+        this.moduleDates = timeSlotDTO.moduleDates;
+        this.day = Day.toDay(Integer.parseInt(timeSlotDTO.day));
+        this.start = Integer.parseInt(timeSlotDTO.start);
+        this.end = Integer.parseInt(timeSlotDTO.end);
+        this.room = timeSlotDTO.room;
+        this.classType = ClassType.toClassType(Integer.parseInt(timeSlotDTO.classType));
+        this.lecturer = timeSlotDTO.lecturer;
     }
 
 
@@ -88,9 +88,10 @@ class TimeSlot implements Comparable<TimeSlot>, Cloneable{
         }
     }
 
-    @Override
-    public String toString(){
-        return moduleName + "," + moduleDates + "," + day.toInt() + "," + start + "," + end + "," + room + "," + classType.toInt() + "," + lecturer;
+    public TimeSlotDTO toDTO(){
+        String[] line = {this.moduleName, this.moduleDates, "" + this.day.toInt(), 
+            "" + this.start, "" + this.end, this.room, "" + this.classType.toInt(), this.lecturer};
+        return new TimeSlotDTO(line);
     }
 
     @Override

@@ -5,59 +5,23 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 /**
  * <p> This class reads and stores data from other classes
  * takes the information and gives it to other classes
  * it also takes the information and creates new informaiton with it </p>
  */
 class DataReader extends Data{
-    private Pattern p;
-    private Matcher match;
-
-    private List<User> users;
-    private List<ModuleTimetable> rooms;
-    private List<ModuleTimetable> modules;
-    private List<ModuleTimetable> courses;
-    private Map<String, String> names;
-
     public DataReader(){
         super();
-
-        p = Pattern.compile("[^\\,]+");
-
-        this.users = new ArrayList<>();
-        this.rooms = new ArrayList<>();
-        this.modules = new ArrayList<>();
-        this.courses = new ArrayList<>();
-        this.names = new HashMap<>();
-
-        readRoomData();
-        readModuleData();
-        readUserData();
-        readCourseData();
-        readNamesData();
     }
 
-    public void reload(){
-        this.users.clear();
-        this.rooms.clear();
-        this.modules.clear();
-        this.courses.clear();
-        this.names.clear();
+    public List<User> readUserData(List<ModuleTimetable> modules){
+        List<User> users = new ArrayList<>();
 
-        readRoomData();
-        readModuleData();
-        readUserData();
-        readCourseData();
-        readNamesData();
-    }
-
-    private void readUserData(){
         try (Scanner scanner = new Scanner(this.userData)){
 
             String curentLine;
+            String splitLine[];
             String username;
             String password;
             String module;
@@ -66,34 +30,28 @@ class DataReader extends Data{
 
             while(scanner.hasNext()){
                 curentLine = scanner.next();
-                match = p.matcher(curentLine);
+                splitLine = curentLine.split(",");
 
-                match.find();
-                username = curentLine.substring(match.start(), match.end());
-                match.find();
-                password = curentLine.substring(match.start(), match.end());
-                match.find();
-                userType = UserType.toUserType(Integer.parseInt(curentLine.substring(match.start(), match.end())));
+                username = splitLine[0];
+                password = splitLine[1];
+                userType = UserType.toUserType(Integer.parseInt(splitLine[2]));
 
                 switch (userType){
                 case STUDENT:
-                    this.users.add(new Student(username, password, userType));
-                    while(match.find()){
-                        module = curentLine.substring(match.start(), match.end());
-                        addModuleToPerson(username, module);
+                    users.add(new Student(username, password, userType));
+                    for(int i = 3; i < splitLine.length; i++){
+                        addModuleToPerson(username, splitLine[i], modules, users);
                     }
                     break;
                 case LECTURER:
-                    match.find();
-                    name = curentLine.substring(match.start(), match.end());
-                    this.users.add(new Lecturer(username, password, userType, name));
-                    while(match.find()){
-                        module = curentLine.substring(match.start(), match.end());
-                        addModuleToPerson(username, module);
+                    name = splitLine[3];
+                    users.add(new Lecturer(username, password, userType, name));
+                    for(int i = 4; i < splitLine.length; i++){
+                        addModuleToPerson(username, splitLine[i], modules, users);
                     }
                     break;
                 case ADMIN:
-                    this.users.add(new Student(username, password, userType));
+                    users.add(new Student(username, password, userType));
                     break;
                 }
             }
@@ -101,151 +59,116 @@ class DataReader extends Data{
         catch(FileNotFoundException e){
             IO.println("File not found");
         }
+        return users;
     }
 
-    private void readRoomData(){
+    public List<ModuleTimetable> readRoomData(){
+        List<ModuleTimetable> rooms = new ArrayList<>();
+
         try (Scanner scanner = new Scanner(this.roomData)){
 
             String curentLine;
+            String splitLine[];
             String roomName;
             int roomType;
             int capacity;
 
             while(scanner.hasNext()){
                 curentLine = scanner.next();
-                match = p.matcher(curentLine);
+                splitLine = curentLine.split(",");
 
-                match.find();
-                roomName = curentLine.substring(match.start(), match.end());
-                match.find();
-                roomType = Integer.parseInt(curentLine.substring(match.start(), match.end()));
-                match.find();
-                capacity = Integer.parseInt(curentLine.substring(match.start(), match.end()));
+                roomName = splitLine[0];
+                roomType = Integer.parseInt(splitLine[1]);
+                capacity = Integer.parseInt(splitLine[2]);
 
-                this.rooms.add(new RoomTimetable(roomName, RoomType.toRoomType(roomType), capacity));
+                rooms.add(new RoomTimetable(roomName, RoomType.toRoomType(roomType), capacity));
             }
         }
         catch(FileNotFoundException e){
             IO.println("File not found");
         }
+        return rooms;
     }
 
-    private void readCourseData(){
+    public List<ModuleTimetable> readModuleData(List<ModuleTimetable> rooms){
+        List<ModuleTimetable> modules = new ArrayList<>();
+
+        try (Scanner scanner = new Scanner(this.modulesData)){
+
+            String curentLine;
+            String splitLine[];
+            TimeSlotDTO timeSlotDTO;
+
+            while(scanner.hasNext()){
+                curentLine = scanner.next();
+                splitLine = curentLine.split(",");
+
+                timeSlotDTO = new TimeSlotDTO(splitLine);
+                
+                if(!findModule(timeSlotDTO.moduleName, modules)){
+                    modules.add(new ModuleTimetable(timeSlotDTO.moduleName));
+                }
+                
+                addTimeSlot(new TimeSlot(timeSlotDTO), modules, rooms);
+            }
+        }
+        catch(FileNotFoundException e){
+            IO.println("File not found");
+        }
+
+        return modules;
+    }
+
+    public List<ModuleTimetable> readCourseData(List<ModuleTimetable> modules){
+        List<ModuleTimetable> courses = new ArrayList<>();
+
         try (Scanner scanner = new Scanner(this.coursesData)){
 
             String curentLine;
+            String splitLine[];
             String courseCode;
             String module;
 
             while(scanner.hasNext()){
                 curentLine = scanner.next();
-                match = p.matcher(curentLine);
+                splitLine = curentLine.split(",");
 
-                match.find();
-                courseCode = curentLine.substring(match.start(), match.end());
+                courseCode = splitLine[0];
+                courses.add(new CourseTimetable(courseCode));
 
-                this.courses.add(new CourseTimetable(courseCode));
-
-                while(match.find()){
-                    module = curentLine.substring(match.start(), match.end());
-                    addModuleToCourse(courseCode, module);
+                for(int i = 1; i < splitLine.length; i++){
+                    addModuleToCourse(courseCode, splitLine[i], modules, courses);
                 }
             }
         }
         catch(FileNotFoundException e){
             IO.println("File not found");
         }
+        return courses;
     }
 
-    private void readModuleData(){
-        try (Scanner scanner = new Scanner(this.modulesData)){
+    public Map<String, String> readNamesData(){
+        Map<String, String> names = new HashMap<>();
+
+        try (Scanner scanner = new Scanner(this.coursesData)){
 
             String curentLine;
-            String moduleName;
-            String moduleDates;
-            int day;
-            int start;
-            int end;
-            String room;
-            int classType;
-            String lecturer;
+            String splitLine[];
 
             while(scanner.hasNext()){
                 curentLine = scanner.next();
-                match = p.matcher(curentLine);
+                splitLine = curentLine.split(",");
 
-                match.find();
-                moduleName = curentLine.substring(match.start(), match.end());
-                match.find();
-                moduleDates = curentLine.substring(match.start(), match.end());
-                match.find();
-                day = Integer.parseInt(curentLine.substring(match.start(), match.end()));
-                match.find();
-                start = Integer.parseInt(curentLine.substring(match.start(), match.end()));
-                match.find();
-                end = Integer.parseInt(curentLine.substring(match.start(), match.end()));
-                match.find();
-                room = curentLine.substring(match.start(), match.end());
-                match.find();
-                classType = Integer.parseInt(curentLine.substring(match.start(), match.end()));
-                match.find();
-                lecturer = curentLine.substring(match.start(), match.end());
-                
-                if(!findModule(moduleName)){
-                    this.modules.add(new ModuleTimetable(moduleName));
-                }
-                
-                addTimeSlot(new TimeSlot(moduleName, moduleDates, Day.toDay(day), start, end, room, ClassType.toClassType(classType), lecturer), modules, rooms);
+                names.put(splitLine[0], splitLine[1]);
             }
         }
         catch(FileNotFoundException e){
             IO.println("File not found");
         }
+        return names;
     }
 
-    private void readNamesData(){
-        try (Scanner scanner = new Scanner(this.namesData)){
-
-            String curentLine;
-            String code;
-            String name;
-
-            while(scanner.hasNext()){
-                curentLine = scanner.next();
-                match = p.matcher(curentLine);
-
-                match.find();
-                code = curentLine.substring(match.start(), match.end());
-                match.find();
-                name = curentLine.substring(match.start(), match.end());
-
-                this.names.put(code, name);
-            }
-        }
-        catch(FileNotFoundException e){
-            IO.println("File not found");
-        }
-    }
-
-    public User findUser(String username, String password){
-        for(User u : this.users){
-            if (u.equals(username, password)){
-                return u;
-            }
-        }
-        return null;
-    }
-
-    public boolean findModule(String name){
-        for(ModuleTimetable m : this.modules){
-            if(m.getName().equals(name)){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public void addTimeSlot(TimeSlot timeSlot, List<ModuleTimetable>... timetables){
+    private void addTimeSlot(TimeSlot timeSlot, List<ModuleTimetable>... timetables){
         for (List<ModuleTimetable> timetable : timetables) {
             for (ModuleTimetable moduleTimetable : timetable) {
                 if (moduleTimetable instanceof RoomTimetable) {
@@ -261,83 +184,40 @@ class DataReader extends Data{
         }
     }
 
-    public void addModuleToCourse(String courseName, String moduleName){
-        for(ModuleTimetable course : this.courses){
+    private void addModuleToCourse(String courseName, String moduleName, List<ModuleTimetable> modules, List<ModuleTimetable> courses){
+        for(ModuleTimetable course : courses){
             if(course.getName().equals(courseName)){
                 CourseTimetable castedCourse = (CourseTimetable) course;
-                castedCourse.addModule(getModule(moduleName));
+                for(ModuleTimetable module : modules){
+                    if(module.getName().equals(moduleName)){
+                        castedCourse.addModule(module);
+                    }
+                }
                 return;
             }
         }
     }
 
-    public void addModuleToPerson(String name, String moduleName){
-        for(User u : this.users){
+    private void addModuleToPerson(String name, String moduleName, List<ModuleTimetable> modules, List<User> users){
+        for(User u : users){
             if(u.getUsername().equals(name)){
                 Student castedUser = (Student) u;
-                castedUser.addModule(getModule(moduleName));
+                for(ModuleTimetable module : modules){
+                    if(module.getName().equals(moduleName)){
+                        castedUser.addModule(module);
+                    }
+                }
                 return;
             }
         }
     }
 
-    public ModuleTimetable getModule(String moduleName){
-        for(ModuleTimetable m : this.modules){
-            if(m.getName().equals(moduleName)){
-                return m;
+    private boolean findModule(String name, List<ModuleTimetable> modules){
+        for(ModuleTimetable m : modules){
+            if(m.getName().equals(name)){
+                return true;
             }
         }
-        return null;
-    }
-
-    public ModuleTimetable getCourse(String courseName){
-        for(ModuleTimetable m : this.courses){
-            if(m.getName().equals(courseName)){
-                return m;
-            }
-        }
-        return null;
-    }
-
-    public ModuleTimetable getRoom(String roomName){
-        for(ModuleTimetable m : this.rooms){
-            if(m.getName().equals(roomName)){
-                return m;
-            }
-        }
-        return null;
-    }
-
-    public List<String[]> getAllModuleNames(){
-        List<String[]> constructed = new ArrayList<>();
-        for(ModuleTimetable m : this.modules){
-            String[] codeName = new String[2];
-            codeName[0] = m.getName();
-            codeName[1] = names.get(m.getName());
-            constructed.add(codeName);
-        }
-        return constructed;
-    }
-
-    public List<String[]> getAllCourseNames(){
-        List<String[]> constructed = new ArrayList<>();
-        for(ModuleTimetable m : this.courses){
-            String[] codeName = new String[2];
-            codeName[0] = m.getName();
-            codeName[1] = names.get(m.getName());
-            constructed.add(codeName);
-        }
-        return constructed;
-    }
-
-    public List<String[]> getAllRoomNames(){
-        List<String[]> constructed = new ArrayList<>();
-        for(ModuleTimetable m : this.rooms){
-            String[] codeName = new String[2];
-            codeName[0] = m.getName();
-            codeName[1] = " ";
-            constructed.add(codeName);
-        }
-        return constructed;
+        return false;
     }
 }

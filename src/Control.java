@@ -10,7 +10,7 @@ import java.util.Objects;
 class Control {
     private boolean running = false;
     private boolean userLogged = false;
-    private DataReader dataReader;
+    private DataParser dataParser;
     private View view;
     private User currentUser = null;
 
@@ -19,7 +19,7 @@ class Control {
     }
 
     public Control() {
-        dataReader = new DataReader();
+        dataParser = new DataParser();
         view = new CommandLineInterface(); // should be a drop in replacement for gui class if we need to make one
         running = true;
     }
@@ -43,7 +43,7 @@ class Control {
             case 3 -> editStudentTimetable();
             case 4 -> editRoomTimetable();
             }
-            dataReader.reload();
+            dataParser.reload();
         }
         else {switch (userInput) {
             case 1 -> displayModuleTimetable();
@@ -58,7 +58,7 @@ class Control {
         while (true) {
             String[] loginDetails = view.displayLogin();
             IO.println(Arrays.toString(loginDetails));
-            currentUser = dataReader.findUser(loginDetails[0], loginDetails[1]);
+            currentUser = dataParser.findUser(loginDetails[0], loginDetails[1]);
             if(currentUser == null){
                 IO.println("Invalid username or password. \nTry again");
             }
@@ -72,16 +72,16 @@ class Control {
 
     public void displayModuleTimetable() {
         view.displayTimetable(
-            dataReader.getModule(
+            dataParser.getModule(
                 view.selection(
-                    dataReader.getAllModuleNames())));
+                    dataParser.getAllModuleNames())));
     }
 
     public void displayCourseTimetable() {
         view.displayTimetable(
-            dataReader.getCourse(
+            dataParser.getCourse(
                 view.selection(
-                    dataReader.getAllCourseNames())));
+                    dataParser.getAllCourseNames())));
     }
 
     public void displayPersonalTimetable() {
@@ -92,9 +92,9 @@ class Control {
 
     public void displayRoomTimetable() {
         view.displayTimetable(
-            dataReader.getRoom(
+            dataParser.getRoom(
                 view.selection(
-                    dataReader.getAllRoomNames())));
+                    dataParser.getAllRoomNames())));
     }
 
     public void editModuleTimetable() {

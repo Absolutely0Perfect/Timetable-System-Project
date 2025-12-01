@@ -19,5 +19,6 @@ public enum RoomType{
         case LAB:
             return 1;
         }
+        return -1;
     }
 }

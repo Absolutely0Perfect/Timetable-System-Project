@@ -1,13 +1,13 @@
 import java.io.FileWriter;
 
-class DataWriter extends Data(){
+class DataWriter extends Data{
 
 
     public DataWriter(){
         super();
     }
 
-    public void addModuleTimeSlot(String[] output;) {
+    public void addModuleTimeSlot(String[] output) {
         int i = 1;
 
         try (FileWriter modules = new FileWriter(this.modulesData)) {
@@ -55,7 +55,7 @@ class DataWriter extends Data(){
         //to be implemented
     }
 
-    public void addRoom(String[] output;) {
+    public void addRoom(String[] output) {
         int i = 1;
 
         try (FileWriter rooms = new FileWriter(this.roomData)) {

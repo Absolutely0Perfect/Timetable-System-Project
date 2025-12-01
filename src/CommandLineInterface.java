@@ -189,7 +189,7 @@ public class CommandLineInterface extends View {
     }
 
     @Override
-    public String[] editModuleTimeSlot(ModuleTimetable timetable, DataReader dataReader){
+    public String[] editModuleTimeSlot(ModuleTimetable timetable, DataParser dataParser){
         displayTimetable(timetable);
 
         IO.println("Enter starting Time of the TimeSlot you want to edit");
@@ -201,7 +201,11 @@ public class CommandLineInterface extends View {
             for(TimeSlot t : timetable.getTimeSlots()){
                 if(t.getStart() == userInput){
                     editedTimeSlot = t;
-                    ramTimeSlot = (TimeSlot) t.clone();
+                    try{
+                        ramTimeSlot = (TimeSlot) t.clone();
+                    } catch (CloneNotSupportedException e){
+                        IO.println("Cloning failed");
+                    }
                 }
             }
             if(ramTimeSlot == null){
@@ -224,7 +228,7 @@ public class CommandLineInterface extends View {
             IO.println("Enter day (Monday-Saturday).");
 
             String day = scanner.nextLine().toLowerCase();
-            Day newDay;
+            Day newDay = null;
             switch (day) {
             case "monday" -> newDay = Day.MONDAY;
             case "tuesday" -> newDay = Day.TUESDAY;
@@ -235,14 +239,15 @@ public class CommandLineInterface extends View {
             }
 
             ramTimeSlot.setDay(newDay);
-            if (!dataReader.getModule(ramTimeSlot.getModuleName()).isSlotFree(ramTimeSlot)){
+            if(!dataParser.getModule(ramTimeSlot.getModuleName()).isSlotFree(ramTimeSlot)){
                 IO.println("Conflict within Module");
                 return null;
             }
-            else if (!dataReader.getRoom(ramTimeSlot.getRoom()).isSlotFree(ramTimeSlot)){
+            else if(!dataParser.getRoom(ramTimeSlot.getRoom()).isSlotFree(ramTimeSlot)){
                 IO.println("Conflict within Room");
                 return null;
             }
+            break;
         case 3:
             IO.println("Enter new starting Time");
             int newStart = scanner.nextInt();
@@ -251,36 +256,38 @@ public class CommandLineInterface extends View {
 
             ramTimeSlot.setStart(newStart);
             ramTimeSlot.setEnd(newEnd);
-            if (!dataReader.getModule(ramTimeSlot.getModuleName()).isSlotFree(ramTimeSlot)){
+            if(!dataParser.getModule(ramTimeSlot.getModuleName()).isSlotFree(ramTimeSlot)){
                 IO.println("Conflict within Module");
                 return null;
             }
-            else if (!dataReader.getRoom(ramTimeSlot.getRoom()).isSlotFree(ramTimeSlot)){
+            else if(!dataParser.getRoom(ramTimeSlot.getRoom()).isSlotFree(ramTimeSlot)){
                 IO.println("Conflict within Room");
                 return null;
             }
+            break;
         case 4:
             IO.println("Enter new Room");
             String newRoom = scanner.nextLine();
-
-            if(dataReader.getRoom(newRoom) == null){
+            if(dataParser.getRoom(newRoom) == null){
                 IO.println("Unknown Room");
                 return null;
             }
 
             ramTimeSlot.setRoom(newRoom);
-            if (!dataReader.getRoom(ramTimeSlot.getRoom()).isSlotFree(ramTimeSlot)){
+            if(!dataParser.getRoom(ramTimeSlot.getRoom()).isSlotFree(ramTimeSlot)){
                 IO.println("Conflict within Room");
                 return null;
             }
+            break;
         case 5:
             IO.println("Enter new type 1. Lecture 2. Lab 3. Tutorial");
             ClassType newClassType = ClassType.toClassType(scanner.nextInt() - 1);
 
-            RoomTimetable currentRoom = (RoomTimetable) dataReader.getRoom(ramTimeSlot.getRoom());
+            RoomTimetable currentRoom = (RoomTimetable) dataParser.getRoom(ramTimeSlot.getRoom());
             if(newClassType == ClassType.LAB && currentRoom.getRoomType() == RoomType.LEC){
                 IO.println("Cant have labs in Lecture Halls");
             }
+            break;
         }
 
         IO.println("Do you want to write change to the file?");
@@ -352,7 +359,7 @@ public class CommandLineInterface extends View {
 
     @Override
     public String[] editCourseModules(){
-        String[] output;
+        String[] output = null;
         return output;
     }
 
@@ -390,7 +397,7 @@ public class CommandLineInterface extends View {
     
     @Override
     public String[] editRoom(){
-        String[] output;
+        String[] output = null;
         return output;
     }
 

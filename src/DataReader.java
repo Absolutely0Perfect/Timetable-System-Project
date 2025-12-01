@@ -16,7 +16,9 @@ class DataReader extends Data{
     public DataReader(){
         super();
     }
-
+    /**
+     * <p>This method reads and gathers all data for User <p>
+     */
     public List<User> readUserData(List<ModuleTimetable> modules, Set<String> lecturers){
         List<User> users = new ArrayList<>();
 
@@ -64,7 +66,9 @@ class DataReader extends Data{
         }
         return users;
     }
-
+    /**
+     * <p>This method reads and gathers all data for Room <p>
+     */
     public List<ModuleTimetable> readRoomData(){
         List<ModuleTimetable> rooms = new ArrayList<>();
 
@@ -92,7 +96,9 @@ class DataReader extends Data{
         }
         return rooms;
     }
-
+    /**
+     * <p>This method gathers and reads all data for Module  <p>
+     */
     public List<ModuleTimetable> readModuleData(List<ModuleTimetable> rooms){
         List<ModuleTimetable> modules = new ArrayList<>();
 
@@ -121,7 +127,9 @@ class DataReader extends Data{
 
         return modules;
     }
-
+    /**
+     * <p>This method gathers and reads all data for Course  <p>
+     */
     public List<ModuleTimetable> readCourseData(List<ModuleTimetable> modules){
         List<ModuleTimetable> courses = new ArrayList<>();
 
@@ -149,7 +157,9 @@ class DataReader extends Data{
         }
         return courses;
     }
-
+    /**
+     * <p>This method gathers and reads all data for Names  <p>
+     */
     public Map<String, String> readNamesData(){
         Map<String, String> names = new HashMap<>();
 
@@ -169,7 +179,9 @@ class DataReader extends Data{
         }
         return names;
     }
-
+    /**
+     * <p>This method gathers and reads all data for Timeslot and adds the data to Timeslot  <p>
+     */
     private void addTimeSlot(TimeSlot timeSlot, List<ModuleTimetable>... timetables){
         for (List<ModuleTimetable> timetable : timetables) {
             for (ModuleTimetable moduleTimetable : timetable) {
@@ -185,7 +197,9 @@ class DataReader extends Data{
             }
         }
     }
-
+    /**
+     * <p>This method gathers and reads all data for Module and adds it to Course  <p>
+     */
     private void addModuleToCourse(String courseName, String moduleName, List<ModuleTimetable> modules, List<ModuleTimetable> courses){
         for(ModuleTimetable course : courses){
             if(course.getName().equals(courseName)){
@@ -199,7 +213,9 @@ class DataReader extends Data{
             }
         }
     }
-
+    /**
+     * <p>This method gathers and reads all data for Module and add it to Person <p>
+     */
     private void addModuleToPerson(String name, String moduleName, List<ModuleTimetable> modules, List<User> users){
         for(User u : users){
             if(u.getUsername().equals(name)){
@@ -213,7 +229,9 @@ class DataReader extends Data{
             }
         }
     }
-
+    /**
+     * <p> This method that searches if the module exits </p>
+     */
     private boolean findModule(String name, List<ModuleTimetable> modules){
         for(ModuleTimetable m : modules){
             if(m.getName().equals(name)){

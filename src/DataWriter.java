@@ -1,12 +1,16 @@
 import java.io.FileWriter;
-
+/**
+ * <p>This class gathers data and add its to each seaprate Timeslot type <p>
+ */
 class DataWriter extends Data{
 
 
     public DataWriter(){
         super();
     }
-
+    /**
+     * <p>This method gahters data from module and prints it to timeslot  <p>
+     */
     public void addModuleTimeSlot(String[] output) {
         int i = 1;
 
@@ -28,7 +32,9 @@ class DataWriter extends Data{
             IO.println("An error occurred.");
         }
     }
-
+    /**
+     * <p>This method gather course data and prints data from course timetable <p>
+     */
     public void addCourse(String[] output) {
         int i = 1;
 
@@ -54,7 +60,9 @@ class DataWriter extends Data{
     public void editStudentTimetable() {
         //to be implemented
     }
-
+    /**
+     * <p>This method gathers data from room and prints it to room timetable  <p>
+     */
     public void addRoom(String[] output) {
         int i = 1;
 

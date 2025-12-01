@@ -9,7 +9,9 @@ class CLIRead extends ViewRead{
     public CLIRead(){
         scanner = new Scanner(System.in);
     }
-
+    /**
+     * <p>@Override method displays statement to propmpt user to selct a module <p>
+     */
     @Override
     public String selection(List<String[]> names){
         IO.println("Select a Module");
@@ -21,7 +23,9 @@ class CLIRead extends ViewRead{
 
         return names.get(userChoice)[0];
     }
-
+    /**
+     * <p>@Overide method that displays a diffrent Type timetable based on User input <p>
+     */
     @Override
     public int displayInterface(UserType userType) {
         switch (userType) {
@@ -44,13 +48,17 @@ class CLIRead extends ViewRead{
         scanner.nextLine();
         return input;
     }
-
+    /**
+     * <p>This method prints a statement that shows a statement that waits for user input <p>
+     */
     @Override
     public int editModuleTimetables(){
         IO.println("1. Edit Existing TimeSlots 2. Add New Timeslot. 3. Change Module Leader 0. Back");
         return scanner.nextInt();
     }
-
+    /**
+     * <p>This method walkes the user through how to edit a Module timetable  <p>
+     */
     @Override
     public TimeSlotDTO[] editModuleTimeSlot(ViewRender viewRender, ModuleTimetable timetable, DataParser dataParser){
         viewRender.displayTimetable(timetable);
@@ -176,6 +184,7 @@ class CLIRead extends ViewRead{
             IO.println("Unknown lecturer");
             return null;
         }
+<<<<<<< Updated upstream
 
         String[] output = new String[3];
         output[0] = timetable.getName();
@@ -184,7 +193,19 @@ class CLIRead extends ViewRead{
 
         return output;
     }
+=======
+>>>>>>> Stashed changes
 
+        String[] output = new String[3];
+        output[0] = timetable.getName();
+        output[1] = timetable.getTimeSlots().get(0).getLecturer();
+        output[2] = newLecturer;
+
+        return output;
+    }
+    /**
+     * <p> This method walks the user through the process of add a module to a timeslot <p>
+     */
     @Override
     public String[] addModuleTimeSlot() {
         String[] output = new String[8];
@@ -242,7 +263,9 @@ class CLIRead extends ViewRead{
         String[] output = null;
         return output;
     }
-
+    /**
+     * <p>This is a method that shows the user how to add course <p>
+     */
     @Override
     public String[] addCourse() {
         ArrayList<String> output = new ArrayList<>();
@@ -303,7 +326,9 @@ class CLIRead extends ViewRead{
 
         return output;
     }
-
+    /**
+     * <p>This method walks the user through to Dispaly log in <p>
+     */
     @Override
     public String[] displayLogin() {
         String[] loginDetails = new String[2];

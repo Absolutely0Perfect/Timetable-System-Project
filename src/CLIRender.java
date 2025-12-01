@@ -8,7 +8,9 @@ class CLIRender extends ViewRender {
     public final int WIDTH = 25;
 
     public CLIRender() {}
-
+    /**
+     * <p>This method outputs a blank Timeslot and then inserts the nessescary data <p>
+     */
     @Override
     public void displayTimetable(ModuleTimetable module) {
         List<TimeSlot> slots = module.getTimeSlots();

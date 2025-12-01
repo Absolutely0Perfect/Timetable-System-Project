@@ -2,8 +2,14 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
+<<<<<<< Updated upstream
 import java.util.Set;
 import java.util.HashSet;
+=======
+/**
+ * <p>This class provides the means the access all the data <p>
+ */
+>>>>>>> Stashed changes
 
 class DataParser{
     private DataReader dataReader;
@@ -24,7 +30,9 @@ class DataParser{
         this.courses = dataReader.readCourseData(this.modules);
         this.names = dataReader.readNamesData();
     }
-
+    /**
+     * <p>This method clear all data and then replaces it <p>
+     */
     public void reload(){
         this.users.clear();
         this.rooms.clear();
@@ -39,7 +47,9 @@ class DataParser{
         this.courses = dataReader.readCourseData(this.modules);
         this.names = dataReader.readNamesData();
     }
-
+    /**
+     * <p>  This method finds a user of type UserType <p>
+     */
     public User findUser(String username, String password){
         for(User u : this.users){
             if (u.equals(username, password)){
@@ -117,7 +127,9 @@ class DataParser{
         }
         return constructed;
     }
-
+    /**
+     * <p>Method checks if lecturer is present <p>
+     */
     public boolean isLecturerPresent(String name){
         return this.lecturers.contains(name);
     }

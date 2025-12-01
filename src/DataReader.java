@@ -15,7 +15,7 @@ class DataReader extends Data{
         super();
     }
 
-    public List<User> readUserData(List<ModuleTimetable> modules){
+    public List<User> readUserData(List<ModuleTimetable> modules, Set<String> lecturers){
         List<User> users = new ArrayList<>();
 
         try (Scanner scanner = new Scanner(this.userData)){
@@ -45,6 +45,7 @@ class DataReader extends Data{
                     break;
                 case LECTURER:
                     name = splitLine[3];
+                    lecturers.add(splitLine[3]);
                     users.add(new Lecturer(username, password, userType, name));
                     for(int i = 4; i < splitLine.length; i++){
                         addModuleToPerson(username, splitLine[i], modules, users);
@@ -150,8 +151,7 @@ class DataReader extends Data{
     public Map<String, String> readNamesData(){
         Map<String, String> names = new HashMap<>();
 
-        try (Scanner scanner = new Scanner(this.coursesData)){
-
+        try (Scanner scanner = new Scanner(this.namesData)){
             String curentLine;
             String splitLine[];
 

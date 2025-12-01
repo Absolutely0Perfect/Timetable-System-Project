@@ -10,9 +10,11 @@ class DataParser{
     private List<ModuleTimetable> modules;
     private List<ModuleTimetable> courses;
     private Map<String, String> names;
+    private Set<String> lecturers;
 
     public DataParser(){
         dataReader = new DataReader();
+        lecturers = new HashSet<>();
 
         this.rooms = dataReader.readRoomData();
         this.modules = dataReader.readModuleData(this.rooms);
@@ -27,10 +29,11 @@ class DataParser{
         this.modules.clear();
         this.courses.clear();
         this.names.clear();
+        this.lecturers.clear();
 
         this.rooms = dataReader.readRoomData();
         this.modules = dataReader.readModuleData(this.rooms);
-        this.users = dataReader.readUserData(this.modules);
+        this.users = dataReader.readUserData(this.modules, this.lecturers);
         this.courses = dataReader.readCourseData(this.modules);
         this.names = dataReader.readNamesData();
     }
@@ -111,5 +114,9 @@ class DataParser{
             constructed.add(codeName);
         }
         return constructed;
+    }
+
+    public boolean isLecturerPresent(String name){
+        return this.lecturers.contains(name);
     }
 }

@@ -168,6 +168,17 @@ class CLIRead extends ViewRead{
         }
     }
 
+    public List<TimeSlotDTO>[] editModuleLeader(ModuleTimetable timetable, DataParser dataParser){
+        List<TimeSlotDTO> before;
+
+        IO.println("Write new Module Leader, 0 for exit");
+        String newLecturer = scaner.nextLine();
+
+        if(!dataParser.isLecturerPresent(newLecturer)){
+            IO.println("Unknown lecturer");
+        }
+    }
+
     @Override
     public String[] addModuleTimeSlot() {
         String[] output = new String[8];

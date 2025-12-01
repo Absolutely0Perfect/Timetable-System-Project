@@ -77,14 +77,18 @@ class CLIRender extends ViewRender {
         }
         printRowBreak();
     } // end of display timetable
-
+    /**
+     * <p>Method prints a break in the row <p>
+     */
     private void printRowBreak(){
         for(int i = 1; i <= (WIDTH + 1) * 6; i++){
             IO.print("-");
         }
         IO.println("-");
     }
-
+    /**
+     * <p>Method prints and empty row <p>
+     */
     private void printEmptyRow(){
         printRowBreak();
         for(int i = 1; i <= (WIDTH + 1) * 6; i++){
@@ -97,7 +101,9 @@ class CLIRender extends ViewRender {
         }
         IO.println("|");
     }
-
+    /**
+     * <p>Method buffer prints new line <p>
+     */
     private void printBuffer(String[] buffer){
         for(int i = 0; i < buffer.length; i++){
             buffer[i] += "|";
@@ -105,7 +111,9 @@ class CLIRender extends ViewRender {
             buffer[i] = "";
         }
     }
-
+    /**
+     * <p>Method buffer prints and empty row if slot is empty <p>
+     */
     private void appendEmptySlotToBuffer(String[] buffer){
         for(int i = 0; i < buffer.length; i++){
             for(int j = 1; j <= (WIDTH + 1); j++){
@@ -128,7 +136,9 @@ class CLIRender extends ViewRender {
         buffer[3] += insertString(timeSlot.getRoom());
         buffer[4] += insertString("Wks:" + timeSlot.getModuleDates());
     }
-
+    /**
+     * <p>Method insert sting is a formatiing method <p>
+     */
     private String insertString(String inserted){
         StringBuilder constructedString = new StringBuilder("|");
         for(int i = 0; i < (WIDTH - inserted.length()) / 2; i++){

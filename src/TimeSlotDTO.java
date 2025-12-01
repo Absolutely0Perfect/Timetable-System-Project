@@ -1,3 +1,6 @@
+/**
+ * <p>This class is is copy of timeslot but and is a wrapper <p>
+ */
 class TimeSlotDTO{
     public String moduleName, moduleDates, day, start, end, room, classType, lecturer;
 

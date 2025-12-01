@@ -3,7 +3,7 @@ import java.util.ArrayList;
 /**
  * <p>This Class stores any nessecary infomartion to create a cell for Timetable </p>
  */
-class TimeSlot implements Comparable<TimeSlot>{
+class TimeSlot implements Comparable<TimeSlot>, Cloneable{
     String moduleName;
     String moduleDates;
     Day day;
@@ -35,6 +35,18 @@ class TimeSlot implements Comparable<TimeSlot>{
 
     public Day getDay(){
         return this.day;
+    }
+
+    public void setDay(Day day){
+        this.day = day;
+    }
+    
+    public void setStart(int start){
+        this.start = start;
+    }
+
+    public void setEnd(int end){
+        this.end = end;
     }
 
     public String getModuleDates() {return moduleDates;}
@@ -78,6 +90,12 @@ class TimeSlot implements Comparable<TimeSlot>{
 
     @Override
     public String toString(){
-        return moduleName + "," + moduleDates + "," + day.toInt() + "," + start "," + end + "," + room + "," + classType.toInt() + "," + lecturer;
+        return moduleName + "," + moduleDates + "," + day.toInt() + "," + start + "," + end + "," + room + "," + classType.toInt() + "," + lecturer;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException{
+        TimeSlot cloned = (TimeSlot) super.clone();
+        return cloned;
     }
 }

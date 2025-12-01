@@ -32,6 +32,6 @@ class User {
 
     @Override
     public String toString(){
-        return username + "," + password + "," + userType.toInt;
+        return username + "," + password + "," + userType.toInt();
     }
 }

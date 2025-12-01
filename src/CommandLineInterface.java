@@ -16,7 +16,7 @@ public class CommandLineInterface extends View {
 
     @Override
     public String selection(List<String[]> names){
-        IO.println("Select a Module to display");
+        IO.println("Select a Module");
 
         for(int i = 0; i < names.size(); i++){
             IO.println(i + ":" + names.get(i)[0] + "-" + names.get(i)[1]);
@@ -183,6 +183,122 @@ public class CommandLineInterface extends View {
     }
 
     @Override
+    public int editModuleTimetables(){
+        IO.println("1. Edit Existing TimeSlots 2. Add New Timeslot. 3. Change Module Leader 0. Back");
+        return scanner.nextInt();
+    }
+
+    @Override
+    public String[] editModuleTimeSlot(ModuleTimetable timetable, DataReader dataReader){
+        displayTimetable(timetable);
+
+        IO.println("Enter starting Time of the TimeSlot you want to edit");
+        int userInput;
+        TimeSlot ramTimeSlot = null;
+        TimeSlot editedTimeSlot = null;
+        while(ramTimeSlot == null){
+            userInput = scanner.nextInt();
+            for(TimeSlot t : timetable.getTimeSlots()){
+                if(t.getStart() == userInput){
+                    editedTimeSlot = t;
+                    ramTimeSlot = (TimeSlot) t.clone();
+                }
+            }
+            if(ramTimeSlot == null){
+                IO.println("Invalid starting Time");
+            }
+        }
+
+        IO.println("What do you want to edit?");
+        IO.println("1. Weeks 2. Day 3. Time 4. Room 5. Class Type");
+        userInput = scanner.nextInt();
+
+        switch(userInput){
+        case 1:
+            IO.println("Enter new Dates");
+            String newDates = scanner.nextLine();
+            ramTimeSlot.setModuleDates(newDates);
+            break;
+        case 2:
+            IO.println("Enter new Day");
+            IO.println("Enter day (Monday-Saturday).");
+
+            String day = scanner.nextLine().toLowerCase();
+            Day newDay;
+            switch (day) {
+            case "monday" -> newDay = Day.MONDAY;
+            case "tuesday" -> newDay = Day.TUESDAY;
+            case "wednesday" -> newDay = Day.WEDNESDAY;
+            case "thursday" -> newDay = Day.THURSDAY;
+            case "friday" -> newDay = Day.FRIDAY;
+            case "saturday" -> newDay = Day.SATURDAY;
+            }
+
+            ramTimeSlot.setDay(newDay);
+            if (!dataReader.getModule(ramTimeSlot.getModuleName()).isSlotFree(ramTimeSlot)){
+                IO.println("Conflict within Module");
+                return null;
+            }
+            else if (!dataReader.getRoom(ramTimeSlot.getRoom()).isSlotFree(ramTimeSlot)){
+                IO.println("Conflict within Room");
+                return null;
+            }
+        case 3:
+            IO.println("Enter new starting Time");
+            int newStart = scanner.nextInt();
+            IO.println("Enter new end Time");
+            int newEnd = scanner.nextInt();
+
+            ramTimeSlot.setStart(newStart);
+            ramTimeSlot.setEnd(newEnd);
+            if (!dataReader.getModule(ramTimeSlot.getModuleName()).isSlotFree(ramTimeSlot)){
+                IO.println("Conflict within Module");
+                return null;
+            }
+            else if (!dataReader.getRoom(ramTimeSlot.getRoom()).isSlotFree(ramTimeSlot)){
+                IO.println("Conflict within Room");
+                return null;
+            }
+        case 4:
+            IO.println("Enter new Room");
+            String newRoom = scanner.nextLine();
+
+            if(dataReader.getRoom(newRoom) == null){
+                IO.println("Unknown Room");
+                return null;
+            }
+
+            ramTimeSlot.setRoom(newRoom);
+            if (!dataReader.getRoom(ramTimeSlot.getRoom()).isSlotFree(ramTimeSlot)){
+                IO.println("Conflict within Room");
+                return null;
+            }
+        case 5:
+            IO.println("Enter new type 1. Lecture 2. Lab 3. Tutorial");
+            ClassType newClassType = ClassType.toClassType(scanner.nextInt() - 1);
+
+            RoomTimetable currentRoom = (RoomTimetable) dataReader.getRoom(ramTimeSlot.getRoom());
+            if(newClassType == ClassType.LAB && currentRoom.getRoomType() == RoomType.LEC){
+                IO.println("Cant have labs in Lecture Halls");
+            }
+        }
+
+        IO.println("Do you want to write change to the file?");
+        IO.println("1. Yes 2. No");
+        userInput = scanner.nextInt();
+        if(userInput == 2){
+            return null;
+        }
+        else{
+            String[] output = new String[2];
+            output[0] = editedTimeSlot.toString();
+            output[1] = ramTimeSlot.toString();
+
+            return output;
+        }
+    }
+
+    @Override
     public String[] addModuleTimeSlot() {
         String[] output = new String[8];
 
@@ -195,7 +311,7 @@ public class CommandLineInterface extends View {
         IO.println("Enter weeks (Start-End).");
         output[1] = scanner.nextLine();
 
-        IO.println("Enter day (Monday-Sunday).");
+        IO.println("Enter day (Monday-Saturday).");
         String day = scanner.nextLine().toLowerCase();
         switch (day) {
             case "monday" -> output[2] = "1";
@@ -204,7 +320,6 @@ public class CommandLineInterface extends View {
             case "thursday" -> output[2] = "4";
             case "friday" -> output[2] = "5";
             case "saturday" -> output[2] = "6";
-            case "sunday" -> output[2] = "7";
         }
 
         IO.println("Enter start time.");
@@ -227,6 +342,17 @@ public class CommandLineInterface extends View {
         IO.println("Enter lecturer name.");
         output[7] = scanner.nextLine();
 
+        return output;
+    }
+
+    @Override
+    public int editCourseTimetables(){
+        return 0;
+    }
+
+    @Override
+    public String[] editCourseModules(){
+        String[] output;
         return output;
     }
 
@@ -255,6 +381,17 @@ public class CommandLineInterface extends View {
         String[] outputArray = new String[output.size()];
         outputArray = output.toArray(outputArray);
         return outputArray;
+    }
+
+    @Override
+    public int editRooms(){
+        return 0;
+    }
+    
+    @Override
+    public String[] editRoom(){
+        String[] output;
+        return output;
     }
 
     @Override

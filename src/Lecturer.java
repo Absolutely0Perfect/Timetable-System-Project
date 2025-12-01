@@ -13,7 +13,7 @@ class Lecturer extends Student{
 
     @Override
     public String toString(){
-        String lineForm = this.username + "," + this.password + "," + this.userType.toInt + "," + this.name;
+        String lineForm = this.username + "," + this.password + "," + this.userType.toInt() + "," + this.name;
         for(TimeSlot t: this.personalTimetable.getTimeSlots()){
             lineForm += "," + t.getModuleName();
         }

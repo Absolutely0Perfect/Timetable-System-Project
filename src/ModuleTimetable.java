@@ -27,11 +27,17 @@ public class ModuleTimetable {
         }
     }
 
-    public boolean isSlotFree(int start, int end){
+    public boolean isSlotFree(int start, int end, Day day){
         int tStart, tEnd;
+        Day tDay;
         for(TimeSlot t : this.timeSlots){
             tStart = t.getStart();
             tEnd = t.getEnd();
+            tDay = t.getDay();
+
+            if(tDay != day){
+                continue;
+            }
 
             if(tStart == start){
                 return false;
@@ -49,10 +55,17 @@ public class ModuleTimetable {
     public boolean isSlotFree(TimeSlot timeSlot){
         int start = timeSlot.getStart();
         int end = timeSlot.getEnd();
+        Day day = timeSlot.getDay();
         int tStart, tEnd;
+        Day tDay;
         for(TimeSlot t : this.timeSlots){
             tStart = t.getStart();
             tEnd = t.getEnd();
+            tDay = t.getDay();
+
+            if(tDay != day){
+                continue;
+            }
 
             if(tStart == start){
                 return false;

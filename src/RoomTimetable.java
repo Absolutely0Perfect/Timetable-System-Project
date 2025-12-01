@@ -12,6 +12,10 @@ class RoomTimetable extends ModuleTimetable{
         this.capacity = capacity;
     }
 
+    public RoomType getRoomType(){
+        return this.type;
+    }
+
     @Override
     public String toString(){
         return name + "," + type.toInt() + "," + capacity;

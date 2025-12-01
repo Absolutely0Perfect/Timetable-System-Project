@@ -21,7 +21,7 @@ class Student extends User{
 
     @Override
     public String toString(){
-        String lineForm = this.username + "," + this.password + "," + this.userType.toInt;
+        String lineForm = this.username + "," + this.password + "," + this.userType.toInt();
         for(TimeSlot t: this.personalTimetable.getTimeSlots()){
             lineForm += "," + t.getModuleName();
         }

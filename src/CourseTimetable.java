@@ -22,7 +22,7 @@ class  CourseTimetable extends ModuleTimetable{
     @Override
     public String toString(){
         String lineForm = this.name;
-        for(TimeSlot t: this.personalTimetable.getTimeSlots()){
+        for(TimeSlot t: this.timeSlots){
             lineForm += "," + t.getModuleName();
         }
         return lineForm;

@@ -1,3 +1,6 @@
+/**
+ * <p> This is a class for an enumerator that gives us the classroom type </p>
+ */
 public enum RoomType{
     LEC, LAB;
 

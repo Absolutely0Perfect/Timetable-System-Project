@@ -13,7 +13,9 @@ class  CourseTimetable extends ModuleTimetable{
         }
         Collections.sort(this.timeSlots);
     }
-
+    /**
+     * <p>This adds all Timeslots for a particular module <p>
+     */
     public void addModule(ModuleTimetable module){
         this.timeSlots.addAll(module.getTimeSlots());
         Collections.sort(this.timeSlots);

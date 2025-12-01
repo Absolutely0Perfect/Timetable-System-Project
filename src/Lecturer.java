@@ -1,12 +1,19 @@
+/**
+ * <p>This class is for lectures <p>
+ */
 class Lecturer extends Student{
     protected String name;
-
+    /**
+     * <p>constructor for lecturer class <p>
+     */
     public Lecturer(String username, String password, UserType userType, String name){
         super(username, password, userType);
 
         this.name = name;
     }
-
+    /**
+     * <p>this gets the name of the lecturer <p>
+     */
     public String getName(){
         return this.name;
     }

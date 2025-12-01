@@ -66,7 +66,10 @@ class TimeSlot implements Comparable<TimeSlot>, Cloneable{
     public String getLecturer() {return lecturer;}
 
     public void setLecturer(String lecturer) {this.lecturer = lecturer;}
-
+    /**
+     * <p>This Override Method converts the enuemerators to ints
+     * This makes it easier to use them to be used when its propted for the user</p>
+     */
     @Override
     public int compareTo(TimeSlot timeSlot){
         if(this.start == timeSlot.getStart()){

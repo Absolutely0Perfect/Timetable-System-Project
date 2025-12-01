@@ -24,7 +24,9 @@ class TimeSlot implements Comparable<TimeSlot>, Cloneable{
         this.lecturer = timeSlotDTO.lecturer;
     }
 
-
+    /**
+     * <p>Getters and setters for data in Timeslot <p>
+     */
     public String getModuleName() {
         return moduleName;
     }
@@ -90,7 +92,9 @@ class TimeSlot implements Comparable<TimeSlot>, Cloneable{
             return 1;
         }
     }
-
+    /**
+     * <p>Method calls from class TimeslotDTO <p>
+     */
     public TimeSlotDTO toDTO(){
         String[] line = {this.moduleName, this.moduleDates, "" + this.day.toInt(), 
             "" + this.start, "" + this.end, this.room, "" + this.classType.toInt(), this.lecturer};

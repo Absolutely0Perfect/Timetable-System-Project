@@ -184,7 +184,13 @@ class CLIRead extends ViewRead{
             IO.println("Unknown lecturer");
             return null;
         }
+        String[] output = new String[3];
+        output[0] = timetable.getName();
+        output[1] = timetable.getTimeSlots().get(0).getLecturer();
+        output[2] = newLecturer;
 
+        return output;
+    }
         String[] output = new String[3];
         output[0] = timetable.getName();
         output[1] = timetable.getTimeSlots().get(0).getLecturer();

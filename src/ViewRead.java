@@ -1,5 +1,7 @@
 import java.util.List;
-
+/**
+ * <p>This class displays everything that is interacting with user <p>
+ */
 abstract class ViewRead{
     abstract public String selection(List<String[]> names);
     abstract public String[] displayLogin();

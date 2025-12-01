@@ -17,7 +17,9 @@ public class ModuleTimetable {
         this.timeSlots.add(timeSlot);
         Collections.sort(this.timeSlots);
     }
-
+    /**
+     * <p>Method gets a timeslot then removes it <p>
+     */
     public void remove(int start){
         for(int i = 0; i < this.timeSlots.size(); i++){
             if(this.timeSlots.get(i).getStart() == start){
@@ -26,7 +28,9 @@ public class ModuleTimetable {
             }
         }
     }
-
+    /**
+     * <p>Method checks if timeslot is free <p>
+     */
     public boolean isSlotFree(int start, int end, Day day){
         int tStart, tEnd;
         Day tDay;

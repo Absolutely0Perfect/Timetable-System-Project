@@ -2,6 +2,7 @@ class TimeSlotDTO{
     public String moduleName, moduleDates, day, start, end, room, classType, lecturer;
 
     public TimeSlotDTO(String[] line){
+        IO.println(line.length);
         this.moduleName = line[0];
         this.moduleDates = line[1];
         this.day = line[2];

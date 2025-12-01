@@ -52,7 +52,7 @@ class CLIRead extends ViewRead{
     }
 
     @Override
-    public String[] editModuleTimeSlot(ViewRender viewRender, ModuleTimetable timetable, DataParser dataParser){
+    public TimeSlotDTO[] editModuleTimeSlot(ViewRender viewRender, ModuleTimetable timetable, DataParser dataParser){
         viewRender.displayTimetable(timetable);
 
         IO.println("Enter starting Time of the TimeSlot you want to edit");
@@ -160,23 +160,29 @@ class CLIRead extends ViewRead{
             return null;
         }
         else{
-            String[] output = new String[2];
-            output[0] = editedTimeSlot.toString();
-            output[1] = ramTimeSlot.toString();
+            TimeSlotDTO[] output = new TimeSlotDTO[2];
+            output[0] = editedTimeSlot.toDTO();
+            output[1] = ramTimeSlot.toDTO();
 
             return output;
         }
     }
 
-    public List<TimeSlotDTO>[] editModuleLeader(ModuleTimetable timetable, DataParser dataParser){
-        List<TimeSlotDTO> before;
-
+    public String[] editModuleLeader(ModuleTimetable timetable, DataParser dataParser){
         IO.println("Write new Module Leader, 0 for exit");
-        String newLecturer = scaner.nextLine();
+        String newLecturer = scanner.nextLine();
 
         if(!dataParser.isLecturerPresent(newLecturer)){
             IO.println("Unknown lecturer");
+            return null;
         }
+
+        String[] output = new String[3];
+        output[0] = timetable.getName();
+        output[1] = timetable.getTimeSlots().get(0).getLecturer();
+        output[2] = newLecturer;
+
+        return output;
     }
 
     @Override

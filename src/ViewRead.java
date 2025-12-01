@@ -7,7 +7,7 @@ abstract class ViewRead{
     
     abstract public int editModuleTimetables();
     abstract public TimeSlotDTO[] editModuleTimeSlot(ViewRender viewRender, ModuleTimetable timetable, DataParser dataParser);
-    abstract public List<TimeSlotDTO>[] editModuleLeader(ModuleTimetable timetable, DataParser dataParser);
+    abstract public String[] editModuleLeader(ModuleTimetable timetable, DataParser dataParser);
     abstract public String[] addModuleTimeSlot();
 
     abstract public int editCourseTimetables();

@@ -2,6 +2,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Set;
+import java.util.HashSet;
 
 class DataParser{
     private DataReader dataReader;
@@ -18,7 +20,7 @@ class DataParser{
 
         this.rooms = dataReader.readRoomData();
         this.modules = dataReader.readModuleData(this.rooms);
-        this.users = dataReader.readUserData(this.modules);
+        this.users = dataReader.readUserData(this.modules, this.lecturers);
         this.courses = dataReader.readCourseData(this.modules);
         this.names = dataReader.readNamesData();
     }
